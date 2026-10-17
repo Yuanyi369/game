@@ -181,12 +181,13 @@ main{max-width:1160px}.hero{padding:22px 28px}.theatre{background:#142e34;border
 main{max-width:800px;padding-top:12px}.appbar{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#577065;padding:0 2px 8px}.appbar .btn{min-height:42px;padding:8px 12px;font-size:12px}.in-session .hero{display:none}.focus-steps{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 0 15px;color:#87938b;font-size:12px}.focus-steps button{border:0;background:transparent;color:#7c8a80;padding:6px 10px;min-height:36px;border-radius:9px}.focus-steps button[aria-current=step]{color:#2b6350;background:#e7efe4;font-weight:750}.optional-actions{display:flex;gap:10px;margin:13px 0}.optional-actions>.btn{flex:1;font-size:13px;padding:10px 12px;min-height:46px}.optional-actions small{font-weight:400;font-size:10px;opacity:.7;margin-left:4px}.decision-brief{border-radius:12px;background:#edf2e7;border:1px solid #d7e0d0;padding:12px 15px;font-size:13px;color:#48634d}.decision-brief strong{color:#2f5e44}.decision-brief p{margin:4px 0 0;font-size:12px}#decisionStep .slab{padding:13px 16px;margin:10px 0}#decisionStep .slider{margin:9px 0 5px}#decisionStep #historyHint{margin:10px 0;font-size:12px}#decisionStep #payoffPreview{font-size:11px;margin-bottom:0}#decisionStep .notice{margin-bottom:0}#roomStep #scenePanel{padding:0;margin:0}#roomStep #scenePanel p{font-size:13px}#roomStep .theatre{margin:10px 0}#roomStep .theatre svg{max-height:300px}#roomStep #eventBanner{padding:10px 14px;margin:10px 0}#roomStep #castPlay{margin:10px 0}.secondary-stat{display:none}#results>.stats{grid-template-columns:repeat(2,minmax(0,1fr))}#theatreResults .theatre{margin:10px 0}#theatreResults .theatre svg{max-height:230px}#theatreResults .facility-strip,#theatreResults .room-detail{display:none}#actionResults>p{display:none}.app-dialog{border:1px solid #cfdacd;padding:0;width:min(720px,calc(100vw - 30px));max-height:90dvh;max-height:90vh;border-radius:22px;background:#f7f7ef;color:var(--ink);box-shadow:0 25px 100px #102c3655;overflow:auto}.app-dialog::backdrop{background:#102b37ad;backdrop-filter:blur(5px)}.dialog-header{position:sticky;top:0;background:#f7f7eff5;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #dfe4d8;padding:16px 20px}.dialog-header h2{font-size:19px;margin:0}.dialog-header .btn{padding:8px 12px;font-size:12px;min-height:42px}.dialog-content{padding:18px 20px 26px}.dialog-content>.card{margin-top:10px}.dialog-content .action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dialog-content .action-card{min-height:140px}.dialog-content .details-panel:first-child{margin-top:0}.dialog-content .btns{flex-direction:row}.dialog-content .btns .btn{width:auto}#projectDialog .card{box-shadow:none;background:transparent;border:0;padding:6px 0;margin:8px 0}#projectDialog #recordPanel{border-bottom:1px solid #d9e1d4;padding-bottom:20px}#finished>p.muted{font-size:13px}#finished #personalReview{margin:15px 0}#finished .ending-title{font-size:25px}#status:empty{display:none}.footer{font-size:10px;margin-top:12px}.footer button{font-size:10px}
 @media(max-width:600px){main{padding:8px 10px 25px}.appbar{font-size:11px;padding-bottom:0}.appbar .btn{font-size:11px}.card{margin-top:8px;padding:16px 14px}#play>.step{margin-bottom:4px}#play>.dots{margin:8px 0 12px}.focus-steps{margin-bottom:8px;gap:10px}#roomStep .theatre svg{max-height:235px}#roomStep .theatre .facility{min-height:51px;padding:5px 2px}#roomStep .theatre .facility span{font-size:16px}#roomStep .theatre .facility b{display:none}#roomStep .theatre .room-detail{display:none}#roomStep .theatre-top{padding-top:9px}#roomStep .theatre{padding-bottom:10px}#roomStep #roomProgress .lamp{padding:9px 12px}#roomStep #roomProgress .lamp-icon{font-size:22px}#roomStep #roomProgress small{font-size:10px}#roomStep #scenePanel p{font-size:12px;margin:5px 0}#roomStep #scenePanel h3{font-size:20px}#roomStep #castPlay .actor{padding:6px 3px}#roomStep #castPlay .face{width:29px;height:29px;font-size:19px}#roomStep #castPlay .atag{display:none}.app-dialog{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;border:0;border-radius:0}.dialog-content{padding:16px 16px 30px}.dialog-header{padding:12px 16px}.dialog-content .btns{flex-wrap:wrap}#results .reward-row{padding:14px}#results .reward-row b{font-size:27px}#results #theatreResults svg{max-height:210px}#finished .review-grid{grid-template-columns:1fr}.dialog-content .action-grid{gap:9px}}
 
+.appbar-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}.appbar>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.appbar .sound-button{min-width:58px}.appbar-actions .btn{white-space:nowrap}#audioVolume{display:block}#audioVolumeValue{float:right}#audioDialog .dialog-content{padding-bottom:28px}@media(max-width:600px){.appbar-actions{gap:4px}.appbar-actions .btn{padding:8px;font-size:10px}.appbar>span{font-size:10px}.appbar .sound-button{min-width:53px}}
 </style>
 </head>
 <body>
 <main>
 
-<div class="appbar"><span>同一间自习室 · 点亮计划</span><button class="btn ghost" id="openProject">规则与项目记录</button></div><header class="hero">
+<div class="appbar"><span>同一间自习室 · 点亮计划</span><div class="appbar-actions"><button type="button" class="btn ghost sound-button" id="soundToggle" aria-pressed="true" aria-label="关闭交互音效">🔈 音效</button><button type="button" class="btn ghost" id="openAudioSettings">音量</button><button class="btn ghost" id="openProject">规则与记录</button></div></div><header class="hero">
   <div class="overline">A SMALL GROUP GAME</div>
   <h1>同一间自习室<small>点亮计划 · 八轮共同冒险</small></h1>
   <p>修好一间旧屋子，接住一场突如其来的雨，也试着看懂身边的人。你们能在闭馆前，把灯点亮吗？</p>
@@ -334,6 +335,7 @@ main{max-width:800px;padding-top:12px}.appbar{display:flex;align-items:center;ju
 <details class="card details-panel"><summary>这次为什么这样改？查看设计与资料</summary><p>领域：互动叙事、角色编剧、行为经济学、移动交互与游戏系统。以下是模拟专业视角，不是真实采访或专家原话。</p><p><b>叙事设计师：</b>“八轮应该像一个晚上，不是八次重复填表。公开记录、再次尝试和闭馆，都能成为自然的转折。”</p><p><b>游戏编剧：</b>“给每个人不同的顾虑；让同一句鼓励遇到不同的人，得到不同回应。台词要承认犹豫，也要容纳玩笑。”</p><p><b>实验经济学研究者：</b>“保持个人收益和集体收益之间的张力。对话只能有限影响模拟行为，不能把鼓励写成必胜按钮。前后阶段对比只能描述本局，不能证明因果。”</p><p><b>交互设计师：</b>“一轮只加一次可选接话，支持直接跳过。触控按钮、清晰的进度和减少动画，都比装饰性弹窗重要。”</p><p><b>系统工程师：</b>“角色只评论有权知道的信息；存档要记住对话和草稿，惩罚要有真实成本，刷新不能重抽结果。”</p><p>综合方案：八幕连续情境＋按性格与事件分流的台词＋对话记忆与接话＋修缮共同目标＋记录驱动结局。核心投入结构保留；标准记录固定收益，挑战模式将所有变化记录为明确字段；标准记录修缮目标为人数 × 8 × 6 点；挑战模式为人数 × 8 × 7 点，含行动卡、事件和修缮连锁。设施只给视觉与故事奖励，没有额外积分。</p><p>边界：匿名阶段角色可以表达自己的感受，但不点名评论别人的具体投入；离线共享设备不能防止查看源代码，导出与完整个人明细在终局开放。模拟角色与参数未经人类行为实验验证。</p><p>参考：<a href="https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md" target="_blank" rel="noopener">inkle 官方互动叙事指南</a>；<a href="https://arxiv.org/abs/0908.3497" target="_blank" rel="noopener">Fowler 与 Christakis：合作行为的传播实验</a>；<a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">W3C 触控目标大小</a>；<a href="https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html" target="_blank" rel="noopener">W3C 减少交互动画</a>。玩法为基于这些方向的原创设计，不是对上述研究的复现。</p></details>
 <details class="card details-panel"><summary>本机项目记录 · 多局汇总</summary><p class="small" id="archiveSummary"></p><p class="notice">完成一局后会自动归档到当前浏览器；重新开局保留历史。汇总 CSV 中仍会区分规则、项目代号、场次与真人/模拟。换浏览器或清理数据会丢失本机记录，请及时导出。</p><button class="btn secondary full" id="exportArchive">导出本机历史 CSV</button></details>
 </div></dialog>
+<dialog class="app-dialog" id="audioDialog" aria-labelledby="audioDialogTitle"><div class="dialog-header"><h2 id="audioDialogTitle">轻柔交互音</h2><button type="button" class="btn ghost" id="closeaudioDialog">关闭 ✕</button></div><div class="dialog-content"><p class="muted">一点木质轻响、一小段暖和弦。没有持续背景音乐，也不会在拖动滑条时反复响。</p><button type="button" class="btn secondary full" id="audioEnabled">音效已开启</button><div class="slab"><label for="audioVolume">音效音量 <b id="audioVolumeValue">22%</b></label><input class="slider" type="range" id="audioVolume" min="0" max="100" value="22" step="1"><div class="between small muted"><span>安静</span><span>清晰</span></div></div><button type="button" class="btn full" id="previewAudio">试听设施解锁音</button><p class="notice" id="audioAvailability">声音会在首次点击后启用；设置记在当前浏览器中。切到后台时停止播放。</p></div></dialog>
 </main>
 
 <script>
@@ -539,6 +541,49 @@ function influence(profile,intent){return ({conditional:[1,0,0],freerider:[0,0,0
 return {scenes:scenes,reaction:reaction,reply:reply,influence:influence};
 })();
 
+/* 交互音：完全本地合成；只在用户操作后启用，不参与游戏随机数和收益。 */
+var ROOM_AUDIO=(function(){
+'use strict';
+var prefKey='studyroom_audio_v1',pref={enabled:true,volume:0.22},ctx=null,master=null,unlocked=false,voices=[],last={},noiseSeed=9137;
+try{var saved=JSON.parse(localStorage.getItem(prefKey)||'null');if(saved){pref.enabled=saved.enabled!==false;var v=Number(saved.volume);if(Number.isFinite(v))pref.volume=Math.max(0,Math.min(1,v));}}catch(e){}
+function storePref(){try{localStorage.setItem(prefKey,JSON.stringify(pref));}catch(e){}}
+function gain(){if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(pref.enabled&&!document.hidden?pref.volume*0.18:0,ctx.currentTime,0.012);}}
+function stop(){voices.forEach(function(n){try{n.stop();}catch(e){}});voices=[];}
+function unlock(){
+ if(!pref.enabled||pref.volume<=0)return;
+ try{if(!ctx){var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;ctx=new AC();master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);}unlocked=true;gain();if(ctx.state!=='running'&&ctx.state!=='closed'){var resume=ctx.resume();if(resume&&resume.catch)resume.catch(function(){});}}catch(e){unlocked=false;}
+}
+function register(n){voices.push(n);n.onended=function(){var i=voices.indexOf(n);if(i>=0)voices.splice(i,1);try{n.disconnect();}catch(e){}};}
+function tone(freq,delay,duration,level,wave,end){
+ if(voices.length>=24)return;var t=ctx.currentTime+delay,o=ctx.createOscillator(),g=ctx.createGain();o.type=wave||'sine';o.frequency.setValueAtTime(freq,t);if(end)o.frequency.exponentialRampToValueAtTime(end,t+duration);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(level,t+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t+duration);o.connect(g);g.connect(master);register(o);o.start(t);o.stop(t+duration+0.02);o.onended=(function(done){return function(){done();g.disconnect();};})(o.onended);
+}
+function rain(delay){
+ if(voices.length>=24)return;var length=Math.floor(ctx.sampleRate*0.52),buffer=ctx.createBuffer(1,length,ctx.sampleRate),data=buffer.getChannelData(0);
+ for(var i=0;i<length;i++){noiseSeed=(Math.imul(noiseSeed,1664525)+1013904223)|0;data[i]=((noiseSeed>>>0)/4294967296*2-1);}
+ var t=ctx.currentTime+delay,source=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),g=ctx.createGain();source.buffer=buffer;filter.type='lowpass';filter.frequency.value=1100;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12,t+0.07);g.gain.exponentialRampToValueAtTime(0.0001,t+0.5);source.connect(filter);filter.connect(g);g.connect(master);register(source);source.start(t);source.stop(t+0.53);source.onended=(function(done){return function(){done();filter.disconnect();g.disconnect();};})(source.onended);
+}
+function play(kind,delay){
+ if(!pref.enabled||pref.volume<=0||!unlocked||!ctx||ctx.state!=='running'||document.hidden)return;
+ var now=ctx.currentTime;if(last[kind]!=null&&now-last[kind]<0.07)return;last[kind]=now;var d=delay||0;
+ try{
+  if(kind==='open')tone(420,d,0.065,0.12,'sine',330);
+  else if(kind==='close')tone(330,d,0.055,0.09,'sine',280);
+  else if(kind==='confirm'){tone(510,d,0.1,0.2,'triangle',160);tone(235,d+0.018,0.11,0.08,'sine',135);}
+  else if(kind==='select')tone(480,d,0.065,0.11,'sine',380);
+  else if(kind==='pool'){[330,440,550].forEach(function(f,i){tone(f,d+i*0.065,0.16,0.11,'sine');});}
+  else if(kind==='unlock'||kind==='start'){[261.63,329.63,392].forEach(function(f,i){tone(f,d+i*0.075,0.42,0.12,'sine');tone(f*2,d+i*0.075,0.24,0.025,'sine');});}
+  else if(kind==='combo'){[329.63,392,523.25,659.25].forEach(function(f,i){tone(f,d+i*0.075,0.3,0.12,'sine');});}
+  else if(kind==='punish'){tone(174.61,d,0.18,0.14,'sine');tone(130.81,d+0.06,0.2,0.08,'sine');}
+  else if(kind==='rain')rain(d);
+  else if(kind==='ending'){[261.63,329.63,392,523.25].forEach(function(f,i){tone(f,d+i*0.09,0.48,0.1,'sine');});}
+ }catch(e){/* 音频不可用时游戏照常继续。 */}
+}
+function enabled(v){if(v===undefined)return pref.enabled;pref.enabled=!!v;if(!pref.enabled)stop();gain();storePref();}
+function volume(v){if(v===undefined)return pref.volume;pref.volume=Math.max(0,Math.min(1,Number(v)||0));if(pref.volume===0)stop();gain();storePref();}
+if(document.addEventListener){document.addEventListener('pointerdown',unlock,{capture:true,passive:true});document.addEventListener('keydown',unlock,{capture:true});document.addEventListener('visibilitychange',function(){if(document.hidden)stop();gain();});}
+return {play:play,unlock:unlock,enabled:enabled,volume:volume,stop:stop,available:function(){return !!(window.AudioContext||window.webkitAudioContext);}};
+})();
+
 var ROOM_RULES=(function(){
 'use strict';
 var tools={none:{name:'留一手',icon:'✋',desc:'不花行动券，不另扣分。'},repair:{name:'抢修工具箱',icon:'🧰',desc:'花 1 行动券和 1 分，为团队额外修缮 3 点。'},amp:{name:'社团扩音器',icon:'📣',desc:'花 1 券和 1 分，本轮公共池倍数 +0.2；多人使用不叠加。'},shield:{name:'防雨帆布',icon:'🛡️',desc:'花 1 券和 1 分，暴雨轮恢复 0.3 倍回报并防止修缮折损；多人使用不叠加。'}};
@@ -596,12 +641,17 @@ function clearSaved(){try{localStorage.removeItem(key);localStorage.removeItem('
 
 
 /* ---------- 分屏与按需面板 ---------- */
-var PANEL_IDS=['talkDialog','toolDialog','reactionDialog','roundDialog','reportDialog','projectDialog'];
+var PANEL_IDS=['talkDialog','toolDialog','reactionDialog','roundDialog','reportDialog','projectDialog','audioDialog'];
 function closePanels(){PANEL_IDS.forEach(function(id){var p=el(id);if(p.open)p.close();});}
-function openPanel(id){var panel=el(id);if(panel.open)return;closePanels();panel.showModal();}
+function openPanel(id){var panel=el(id);if(panel.open)return;closePanels();panel.showModal();ROOM_AUDIO.play('open');}
 function decisionBrief(){if(!game||game.screen!=='play')return;var ev=roundEvent(),tool=currentTool();el('decisionBrief').innerHTML='<strong>'+ev.name+' · 公共池 '+fmt(ev.multiplier)+' 倍</strong><p>已选：'+ROOM_RULES.tools[tool].icon+' '+ROOM_RULES.tools[tool].name+(tool==='none'?' · 无行动成本':' · 使用后另扣 1 分')+'。'+(game.talks&&game.talks[game.round]?'本轮已完成交流。':'交流可选，可以直接决策。')+'</p>';show('openTools',challenge());}
-function setPlayStep(step,persist){if(!game||game.screen!=='play')return;show('roomStep',step==='room');show('decisionStep',step==='decision');el('backToRoom').setAttribute('aria-current',step==='room'?'step':'false');el('enterDecisionTab').setAttribute('aria-current',step==='decision'?'step':'false');decisionBrief();if(persist!==false){saveDraft();var p=currentHuman();game.drafts[game.round+':'+p.id].uiStep=step;save();}el(step==='room'?'backToRoom':'playerLabel').setAttribute('tabindex','-1');el(step==='room'?'backToRoom':'playerLabel').focus({preventScroll:true});}
-function bindPanels(){var bindings={openProject:'projectDialog',openTalk:'talkDialog',openTools:'toolDialog',openReactions:'reactionDialog',openRoundDetails:'roundDialog',openReport:'reportDialog'};Object.keys(bindings).forEach(function(id){el(id).onclick=function(){openPanel(bindings[id]);};});PANEL_IDS.forEach(function(id){el('close'+id).onclick=function(){el(id).close();};el(id).addEventListener('close',function(){decisionBrief();});});el('doneTools').onclick=function(){el('toolDialog').close();decisionBrief();};el('enterDecision').onclick=el('enterDecisionTab').onclick=function(){setPlayStep('decision');};el('backToRoom').onclick=function(){setPlayStep('room');};}
+function setPlayStep(step,persist){if(!game||game.screen!=='play')return;if(persist!==false)ROOM_AUDIO.play('select');show('roomStep',step==='room');show('decisionStep',step==='decision');el('backToRoom').setAttribute('aria-current',step==='room'?'step':'false');el('enterDecisionTab').setAttribute('aria-current',step==='decision'?'step':'false');decisionBrief();if(persist!==false){saveDraft();var p=currentHuman();game.drafts[game.round+':'+p.id].uiStep=step;save();}el(step==='room'?'backToRoom':'playerLabel').setAttribute('tabindex','-1');el(step==='room'?'backToRoom':'playerLabel').focus({preventScroll:true});}
+function bindPanels(){var bindings={openProject:'projectDialog',openTalk:'talkDialog',openTools:'toolDialog',openReactions:'reactionDialog',openRoundDetails:'roundDialog',openReport:'reportDialog',openAudioSettings:'audioDialog'};Object.keys(bindings).forEach(function(id){el(id).onclick=function(){openPanel(bindings[id]);};});PANEL_IDS.forEach(function(id){el('close'+id).onclick=function(){ROOM_AUDIO.play('close');el(id).close();};el(id).addEventListener('close',function(){decisionBrief();});el(id).addEventListener('cancel',function(){ROOM_AUDIO.play('close');});});el('doneTools').onclick=function(){ROOM_AUDIO.play('close');el('toolDialog').close();decisionBrief();};el('enterDecision').onclick=el('enterDecisionTab').onclick=function(){setPlayStep('decision');};el('backToRoom').onclick=function(){setPlayStep('room');};}
+
+
+function syncAudioControls(){var active=ROOM_AUDIO.enabled()&&ROOM_AUDIO.volume()>0;el('soundToggle').textContent=active?'🔈 音效':'🔇 静音';el('soundToggle').setAttribute('aria-pressed',String(active));el('soundToggle').setAttribute('aria-label',active?'关闭交互音效':'开启交互音效');el('audioEnabled').textContent=active?'音效已开启 · 点击静音':'音效已静音 · 点击开启';el('audioEnabled').setAttribute('aria-pressed',String(active));el('audioVolume').value=Math.round(ROOM_AUDIO.volume()*100);el('audioVolumeValue').textContent=Math.round(ROOM_AUDIO.volume()*100)+'%';el('previewAudio').disabled=!active||!ROOM_AUDIO.available();if(!ROOM_AUDIO.available())el('audioAvailability').textContent='当前浏览器无法播放交互音效，仍可正常完成游戏与导出数据。';}
+function toggleAudio(){var active=ROOM_AUDIO.enabled()&&ROOM_AUDIO.volume()>0;if(!active&&ROOM_AUDIO.volume()===0)ROOM_AUDIO.volume(0.22);ROOM_AUDIO.enabled(!active);if(!active){ROOM_AUDIO.unlock();ROOM_AUDIO.play('select');}syncAudioControls();}
+function bindAudioControls(){el('soundToggle').onclick=el('audioEnabled').onclick=toggleAudio;el('audioVolume').addEventListener('input',function(e){ROOM_AUDIO.volume(Number(e.target.value)/100);syncAudioControls();});el('audioVolume').addEventListener('change',function(){ROOM_AUDIO.unlock();ROOM_AUDIO.play('select');});el('previewAudio').onclick=function(){ROOM_AUDIO.unlock();ROOM_AUDIO.play('unlock');};syncAudioControls();}
 
 /* ---------- 视觉房间与挑战机制 ---------- */
 var FACILITIES=[{at:0.2,name:'暖光台灯',text:'终于不用眯着眼看笔记了。灯亮的那一刻，这张桌子像是有了温度。',icon:'💡'},{at:0.4,name:'合作长桌',text:'修好的桌面不会再晃。原本各坐一角的人，可以把笔记摊在一起。',icon:'🪑'},{at:0.65,name:'共享书架',text:'有书、有便签，也有一句“看完放回就好”。这里开始留下每个人的痕迹。',icon:'📚'},{at:1,name:'窗边花园',text:'绿叶舒展开了，旧自习室也终于有了自己的样子。下次经过，或许会愿意多待一会儿。',icon:'🌿'}];
@@ -645,7 +695,7 @@ function renderChallenge(){
  el('actionPanel').innerHTML=html;
  el('actionPanel').querySelectorAll('[data-tool]').forEach(function(b){b.onclick=function(){selectTool(b.dataset.tool);};});
 }
-function selectTool(tool){if(!challenge()||game.screen!=='play'||!ROOM_RULES.tools[tool])return;var p=currentHuman();if(tool!=='none'&&tokensLeft(p.id)<=0)return;saveDraft();game.drafts[game.round+':'+p.id].tool=tool;save();renderChallenge();previewPayoff();decisionBrief();}
+function selectTool(tool){if(!challenge()||game.screen!=='play'||!ROOM_RULES.tools[tool])return;var p=currentHuman();if(tool!=='none'&&tokensLeft(p.id)<=0)return;saveDraft();game.drafts[game.round+':'+p.id].tool=tool;save();renderChallenge();previewPayoff();decisionBrief();ROOM_AUDIO.play('select');}
 function renderChallengeResult(r){
  el('theatreResults').innerHTML=theatreHtml(true);bindFacilities('theatreResults');
  var html='<div class="reward-row"><div><small>本轮点亮</small><b>+'+fmt(r.repairGain==null?r.total:r.repairGain)+' <span>修缮</span></b></div>';
@@ -661,7 +711,7 @@ function projectGuide(){
  var html='<div class="project-panel"><div class="overline">YOUR SMALL RESEARCH PROJECT</div><h3>把这一晚变成一份小项目</h3><p>本局 '+humanCount+' 位真人 · '+(game.persons.length-humanCount)+' 位模拟角色 · '+(game.condition==='adventure'?'剧情挑战':'标准记录')+' · '+(game.advanced?'有惩罚':'无惩罚')+'</p><ol><li>固定玩法与人数，邀请更多同学完成独立场次。用会话 ID 区分每一局。</li><li>先画每轮平均投入、预测误差、个人与团队得分；挑战局再标注事件、道具和连锁。</li><li>比较公开前后变化，并讨论重复互动、事件与角色组成等其他解释。</li></ol><p class="small">8 轮决策不是 8 个独立样本；同局玩家会互相影响。模拟记录可以用于模型练习，真人结论只能来自真人数据。没有随机分组的前后比较只支持描述性结论。</p><details><summary>字段、规则与采集说明</summary><p class="small">CSV 为“一个玩家 × 一轮”一行，包含实际倍数、行动成本、事件、修缮增量、阶段、预测误差、对话目标与承诺、决策间隔毫秒（含中途离开）、真人/模拟标签与版本号。“扣行动后得分”已扣道具成本，最终得分再扣惩罚。JSON 保留完整会话、规则与对话；项目说明可另行下载。</p></details><button class="btn ghost full" id="exportProtocol">下载项目说明与字段字典</button></div>';
  el('projectGuide').innerHTML=html;el('exportProtocol').onclick=exportProtocol;
 }
-function protocolText(){return '# 同一间自习室：小型项目说明\n\n版本：5.0\n本局规则：'+game.condition+'\n会话：'+game.session+'\n模式：'+game.mode+'\n人数：'+game.persons.length+'\n高级规则：'+game.advanced+'\n\n## 建议问题\n公开个人记录之后，团队投入和对他人投入的预测怎样变化？\n挑战局可另描述：事件发生时，谁愿意支付道具成本，以及团队怎样应对？\n\n## 核心规则\n每人每轮10点，共8轮；第1–4轮仅公开团队总额，第5轮起可见上轮个人投入，本轮结算公开个人投入和得分。标准记录回报固定1.6倍，无行动卡和突发事件；单人沟通仅改变台词，不改变模拟投入。\n剧情挑战：正常1.6倍；第3和第6轮分别出现暴雨/开放夜，种子奇偶决定先后。暴雨1.2倍、修缮70%；有帆布则恢复至1.5倍、修缮100%；开放夜1.9倍；任一扩音器再加0.2倍，不叠加。每人2张行动券，使用一张另外扣1分。工具箱额外修缮3点。连续两轮平均贡献至少6点，第二轮修缮量翻倍，然后连锁计数清零。设施仅为视觉与叙事奖励，不增加积分。\n得分=10-贡献+实际倍数×总贡献/人数-行动成本-惩罚支出-被罚损失。进阶规则可选：惩罚者损失1分，被罚者损失3分。\n\n## 字段字典\nCSV每行是一位玩家一轮：会话ID、参与者代号、昵称、真人或模拟、模拟画像、人数、贡献、预测与实际他人均值、得分、随机种子、阶段、决策前可见信息、公开目标、实际倍数、行动卡及成本、剩余券、事件、修缮量、连锁、设施解锁、决策间隔毫秒（含中途离开）、沟通与承诺、版本、界面版本和规则条件。JSON保留原始对象和导出时间。决策间隔包含阅读、停留和中途离开，不代表纯思考时长；模拟者没有决策间隔。匿名阶段不提供个人即时得分，完整导出在终局开放。\n\n## 组织与分析\n不收真实姓名，只用匿名代号；提前说明用途，征得参与者同意。规则、人数、教学辅助和高级设置应保持一致。数据保存在当前浏览器，完成场次自动归档，可从“本机项目记录”汇总导出；没有联网自动收集。仅有前后比较时用“变化/相关”，不用“证明导致”。8轮不是8个独立样本，同局玩家相关；可先按局汇总。模拟和真人必须区分，不混合计算真人样本量。\n\n## 三幅建议图\n1.按轮次的团队人均投入（标注公开节点）。\n2.预测均值与实际均值，以及绝对误差。\n3.个人累计得分与团队总得分；挑战局另标事件、道具与成本。\n\n## 小报告结构\n问题→规则与参与者→数据与三幅图→观察到的变化→局限与下一步。一局试玩不支持普遍结论。\n';}
+function protocolText(){return '# 同一间自习室：小型项目说明\n\n版本：5.0\n本局规则：'+game.condition+'\n会话：'+game.session+'\n模式：'+game.mode+'\n人数：'+game.persons.length+'\n高级规则：'+game.advanced+'\n\n## 建议问题\n公开个人记录之后，团队投入和对他人投入的预测怎样变化？\n挑战局可另描述：事件发生时，谁愿意支付道具成本，以及团队怎样应对？\n\n## 核心规则\n每人每轮10点，共8轮；第1–4轮仅公开团队总额，第5轮起可见上轮个人投入，本轮结算公开个人投入和得分。标准记录回报固定1.6倍，无行动卡和突发事件；单人沟通仅改变台词，不改变模拟投入。\n剧情挑战：正常1.6倍；第3和第6轮分别出现暴雨/开放夜，种子奇偶决定先后。暴雨1.2倍、修缮70%；有帆布则恢复至1.5倍、修缮100%；开放夜1.9倍；任一扩音器再加0.2倍，不叠加。每人2张行动券，使用一张另外扣1分。工具箱额外修缮3点。连续两轮平均贡献至少6点，第二轮修缮量翻倍，然后连锁计数清零。设施仅为视觉与叙事奖励，不增加积分。\n得分=10-贡献+实际倍数×总贡献/人数-行动成本-惩罚支出-被罚损失。进阶规则可选：惩罚者损失1分，被罚者损失3分。\n\n## 字段字典\nCSV每行是一位玩家一轮：会话ID、参与者代号、昵称、真人或模拟、模拟画像、人数、贡献、预测与实际他人均值、得分、随机种子、阶段、决策前可见信息、公开目标、实际倍数、行动卡及成本、剩余券、事件、修缮量、连锁、设施解锁、决策间隔毫秒（含中途离开）、沟通与承诺、版本、界面版本、音效设置和规则条件。JSON保留原始对象和导出时间。决策间隔包含阅读、停留和中途离开，不代表纯思考时长；模拟者没有决策间隔。匿名阶段不提供个人即时得分，完整导出在终局开放。\n\n## 组织与分析\n不收真实姓名，只用匿名代号；提前说明用途，征得参与者同意。规则、人数、教学辅助、音效设置和高级设置应保持一致。数据保存在当前浏览器，完成场次自动归档，可从“本机项目记录”汇总导出；没有联网自动收集。仅有前后比较时用“变化/相关”，不用“证明导致”。8轮不是8个独立样本，同局玩家相关；可先按局汇总。模拟和真人必须区分，不混合计算真人样本量。\n\n## 三幅建议图\n1.按轮次的团队人均投入（标注公开节点）。\n2.预测均值与实际均值，以及绝对误差。\n3.个人累计得分与团队总得分；挑战局另标事件、道具与成本。\n\n## 小报告结构\n问题→规则与参与者→数据与三幅图→观察到的变化→局限与下一步。一局试玩不支持普遍结论。\n';}
 function exportProtocol(){download('自习室项目说明_'+game.session+'.md',protocolText(),'text/markdown;charset=utf-8');}
 
 /* ---------- 场景、公共对话与回顾 ---------- */
@@ -812,7 +862,7 @@ function newGame(){
     punishQueue:[],punishChoices:{},pendingPunishRow:null,
     screen:'play',created:new Date().toISOString()
   };
-  save();show('recordPanel');updateRecords();moveToPlayer(true);
+  save();show('recordPanel');updateRecords();moveToPlayer(true);ROOM_AUDIO.play('start');
 }
 
 /* ---------- 流程 ---------- */
@@ -884,11 +934,11 @@ function showPlayer(){
 }
 
 function submit(){
-  if(!game||game.screen!=='play')return;
+  if(!game||game.screen!=='play')return;ROOM_AUDIO.play('confirm');
   var humans=game.persons.filter(function(p){return !p.bot;});
   var p=humans[game.index];
   game.temporary.push({id:p.id,name:p.name,bot:false,profile:null,
-    contribution:Number(el('contribution').value),forecast:Number(el('forecast').value),tool:currentTool(),decisionMs:Math.max(0,Date.now()-((game.drafts[game.round+':'+p.id]||{}).openedAt||Date.now()))});
+    contribution:Number(el('contribution').value),forecast:Number(el('forecast').value),tool:currentTool(),audioEnabled:ROOM_AUDIO.enabled()&&ROOM_AUDIO.volume()>0&&ROOM_AUDIO.available(),audioVolume:Math.round(ROOM_AUDIO.volume()*100),decisionMs:Math.max(0,Date.now()-((game.drafts[game.round+':'+p.id]||{}).openedAt||Date.now()))});
   game.index++;save();
   if(game.index<humans.length)moveToPlayer(false);else settle();
 }
@@ -940,7 +990,7 @@ function settle(){
     round:game.round,stage:stage(game.round),publicPrevious:game.round>=5,
     norm:game.norm,actions:actions,total:total,
     teamBase:n*ENDOWMENT+(resolved.multiplier-1)*total-actions.reduce(function(s,a){return s+a.toolCost;},0),event:event,effectiveMultiplier:resolved.multiplier,repairGain:resolved.repairGain,combo:resolved.combo,comboStreak:resolved.streak,toolCounts:resolved.counts,newUnlocks:[],pactKept:null,
-    uiVersion:'focus-5.1',punishEvents:[],reactions:{},talk:(game.talks||{})[game.round]||null,punishDone:!(game.advanced&&stage(game.round)==='B')
+    uiVersion:'focus-5.2-audio',punishEvents:[],reactions:{},talk:(game.talks||{})[game.round]||null,punishDone:!(game.advanced&&stage(game.round)==='B')
   };
   /* 反应在结算时生成并存档（渲染是纯函数） */
   var rngFace=L.mulberry32(L.roundSeed(game.seed,game.round,2));
@@ -952,7 +1002,7 @@ function settle(){
   game.rows.push(row);row.newUnlocks=FACILITIES.map(function(f,i){return beforeRatio<f.at&&roomRatio()>=f.at?i:-1;}).filter(function(i){return i>=0;});
   game.temporary=[];game.index=0;
   game.screen='results';
-  save();renderResults(row);updateRecords();view('results');
+  save();renderResults(row);updateRecords();view('results');if(row.newUnlocks.length||row.combo===2||row.total>0)ROOM_AUDIO.play(row.newUnlocks.length?'unlock':row.combo===2?'combo':'pool',0.14);
 }
 
 function renderStandings(dest,acts,key){
@@ -1088,6 +1138,7 @@ function finalizePunishment(r,humanEvents){
       if(to)events.push({from:a.id,fromName:a.name,to:to.id,toName:to.name});
     });
   });
+  if(events.length)ROOM_AUDIO.play('punish');
   r.punishEvents=events;
   L.applyPunishment(r.actions,events,PUNISH_COST,PUNISH_EFFECT);
   r.punishDone=true;
@@ -1110,9 +1161,9 @@ function next(){
   if(!game||game.screen!=='results')return;
   var r=previous();
   if(game.advanced&&r.stage==='B'&&!r.punishDone){return;}
-  if(game.round>=MAX_ROUNDS){finish();return;}
+  if(game.round>=MAX_ROUNDS){ROOM_AUDIO.play('ending');finish();return;}
   game.round++;game.index=0;game.screen='play';save();
-  moveToPlayer(game.mode==='solo');
+  moveToPlayer(game.mode==='solo');if(roundEvent().id==='storm')ROOM_AUDIO.play('rain',0.06);
 }
 
 var CHART_COLORS=['#4169e1','#c04a3a','#1d806e','#c58b39','#7a5af8'];
@@ -1186,7 +1237,7 @@ function dataRows(sample){
   var head=['会话ID','游戏模式','是否进阶规则','随机种子','轮次','阶段','决策前可见信息','约定值','参与人数',
     '玩家代号','玩家昵称','真人或模拟','行为类型(仅模拟者)','本人贡献','预测他人均值','他人实际均值',
     '团队总贡献','扣行动后得分','惩罚支出','被罚损失','最终得分','累计得分','社会事件',
-    '回报倍数','每轮点数','惩罚成本','惩罚力度','场景','本轮对话','公开意向','沟通投入修正','规则版本','项目代号','规则条件','突发事件','事件初始倍数','行动卡','行动成本','剩余行动券','行动前得分','修缮增量','连锁倍率','本轮解锁','预测绝对误差','决策间隔毫秒_含停留','对话目标','约定对象','约定点数','对方接受约定','双方兑现约定','界面版本'];
+    '回报倍数','每轮点数','惩罚成本','惩罚力度','场景','本轮对话','公开意向','沟通投入修正','规则版本','项目代号','规则条件','突发事件','事件初始倍数','行动卡','行动成本','剩余行动券','行动前得分','修缮增量','连锁倍率','本轮解锁','预测绝对误差','决策间隔毫秒_含停留','对话目标','约定对象','约定点数','对方接受约定','双方兑现约定','界面版本','音效开启_决策时','音量百分比_决策时'];
   var cum={};
   var rows=[];
   source.rows.forEach(function(r){
@@ -1204,7 +1255,7 @@ function dataRows(sample){
         a.id,a.name,a.bot?'模拟':'真人',a.bot?L.PROFILES[a.profile].label:'',
         a.contribution,a.forecast==null?'':a.forecast,fmt(a.peerMean),r.total,
         fmt(a.payoffBase),a.punishGiven||0,a.punishReceived||0,fmt(a.payoff),fmt(cum[a.id]),
-        events.join('；'),r.effectiveMultiplier||MULTIPLIER,ENDOWMENT,source.advanced?PUNISH_COST:'',source.advanced?PUNISH_EFFECT:'',GAME_STORY.scenes[r.round-1][2],r.talk?r.talk.text:'',r.talk&&r.talk.pledge!=null?r.talk.pledge:'',a.bot&&r.talk?(r.talk.shifts[a.id]||0):0,source.ruleVersion||'4.x',source.projectCode||'',source.condition||'legacy',r.event?r.event.id:'legacy',r.event?r.event.multiplier:1.6,a.tool||'none',a.toolCost||0,a.tokensLeft==null?'':a.tokensLeft,fmt(a.grossPayoff==null?a.payoffBase:a.grossPayoff),r.repairGain==null?r.total:r.repairGain,r.combo||1,(r.newUnlocks||[]).map(function(i){return FACILITIES[i].name;}).join('；'),Math.abs(a.forecast-a.peerMean),a.decisionMs==null?'':a.decisionMs,r.talk?r.talk.target||'all':'',r.talk&&r.talk.pact?r.talk.pact.id:'',r.talk&&r.talk.pact?r.talk.pact.amount:'',r.talk&&r.talk.pact?r.talk.pact.accepted:'',r.pactKept==null?'':r.pactKept,r.uiVersion||'single-page'
+        events.join('；'),r.effectiveMultiplier||MULTIPLIER,ENDOWMENT,source.advanced?PUNISH_COST:'',source.advanced?PUNISH_EFFECT:'',GAME_STORY.scenes[r.round-1][2],r.talk?r.talk.text:'',r.talk&&r.talk.pledge!=null?r.talk.pledge:'',a.bot&&r.talk?(r.talk.shifts[a.id]||0):0,source.ruleVersion||'4.x',source.projectCode||'',source.condition||'legacy',r.event?r.event.id:'legacy',r.event?r.event.multiplier:1.6,a.tool||'none',a.toolCost||0,a.tokensLeft==null?'':a.tokensLeft,fmt(a.grossPayoff==null?a.payoffBase:a.grossPayoff),r.repairGain==null?r.total:r.repairGain,r.combo||1,(r.newUnlocks||[]).map(function(i){return FACILITIES[i].name;}).join('；'),Math.abs(a.forecast-a.peerMean),a.decisionMs==null?'':a.decisionMs,r.talk?r.talk.target||'all':'',r.talk&&r.talk.pact?r.talk.pact.id:'',r.talk&&r.talk.pact?r.talk.pact.amount:'',r.talk&&r.talk.pact?r.talk.pact.accepted:'',r.pactKept==null?'':r.pactKept,r.uiVersion||'single-page',a.audioEnabled==null?'':a.audioEnabled,a.audioVolume==null?'':a.audioVolume
       ]);
     });
   });
@@ -1303,7 +1354,7 @@ try{
 }catch(e){}
 
 el('quickContribution').addEventListener('click',function(e){var b=e.target.closest('button[data-value]');if(!b)return;el('contribution').value=b.dataset.value;el('contributionValue').textContent=b.dataset.value;saveDraft();previewPayoff();});
-bindPanels();el('exportArchive').addEventListener('click',exportArchive);makeNames();restore();renderArchiveSummary();
+bindPanels();bindAudioControls();el('exportArchive').addEventListener('click',exportArchive);makeNames();restore();renderArchiveSummary();
 })();
 </script>
 </body>
