@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111d32">
+<title>同一间自习室 · 今晚还亮着灯</title>
+<style>
+:root{
+  --bg:#f4f3ef;--dark:#132139;--ink:#18263b;--muted:#697789;--line:#e2e5e9;
+  --blue:#4169e1;--light:#eef2ff;--gold:#c58b39;--white:#fff;--green:#1d806e;
+  --red:#c04a3a;--orange:#d07a2d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"PingFang SC","Microsoft Yahei",sans-serif;font-size:15px;line-height:1.6}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1060px;margin:auto;padding:18px 18px 70px}
+.hide{display:none!important}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(125deg,#162743,#102038 65%,#213e5d);color:#fff;padding:27px 29px;border-radius:23px;box-shadow:0 18px 36px #1627431a;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:290px;height:290px;border:55px solid #ffffff08;border-radius:50%;right:-90px;top:-120px}
+.overline{font-size:11px;color:#9dbdfb;letter-spacing:2px;font-weight:750}
+.hero h1{font-size:clamp(27px,5.5vw,42px);line-height:1.2;margin:10px 0}
+.hero p{margin:0;color:#c8d4e3;max-width:650px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px;position:relative;z-index:1}
+.tag{border:1px solid #6c7b9188;border-radius:20px;padding:4px 10px;color:#d5deeb;font-size:12px}
+
+/* ---------- generic card ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:19px;padding:23px;margin-top:18px;box-shadow:0 7px 25px #12203a09}
+h2{margin:0 0 8px;font-size:23px}
+h3{margin:0;font-size:16px}
+p{margin:8px 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:13px}
+.row.wrap{flex-wrap:wrap}
+.step{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+
+/* ---------- buttons ---------- */
+.btn{background:var(--blue);border:0;border-radius:12px;color:#fff;padding:13px 20px;font-weight:750;transition:transform .15s ease,box-shadow .15s ease}
+.btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 6px 16px #4169e133}
+.btn:not(:disabled):active{transform:translateY(0)}
+.btn.secondary{background:#eef2fb;color:#234579}
+.btn.ghost{background:transparent;color:#53657c;border:1px solid #ced6e2}
+.btn.danger{background:#fbeae7;color:var(--red);border:1px solid #ecc5bd}
+.btn.full{width:100%}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btns .btn{flex:1}
+
+/* ---------- setup ---------- */
+.select-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.mode{background:#f8f9fc;padding:18px;border:2px solid #e6eaf2;border-radius:15px;text-align:left;color:var(--ink);transition:border-color .15s,background .15s}
+.mode.selected{border-color:var(--blue);background:#eef2ff}
+.mode strong{display:block;font-size:17px;margin-bottom:4px}
+.mode small{color:var(--muted)}
+.group{margin:14px 0}
+.group label{display:block;margin-bottom:6px}
+select.number{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff}
+.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
+.names label{display:block}
+.names input{width:100%;margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:11px}
+.ruleband{background:#f3f6fc;border-left:4px solid var(--blue);border-radius:10px;padding:14px 16px;margin:16px 0}
+.ruleband p{margin:6px 0}
+.switchline{display:flex;align-items:center;gap:10px;background:#fdf8ef;border:1px solid #ecdfc5;border-radius:12px;padding:12px 14px;margin:14px 0}
+.switchline input{width:18px;height:18px;accent-color:var(--gold)}
+.notice{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+
+/* ---------- handoff ---------- */
+.reveal{font-size:27px;font-weight:800;text-align:center;padding:38px 10px}
+.reveal span{color:var(--blue)}
+
+/* ---------- play ---------- */
+.pill{background:#e4ebfb;color:#2a4d8f;border-radius:999px;padding:5px 13px;font-size:12px;font-weight:750;white-space:nowrap}
+.pill.orange{background:#fdeeda;color:#8a5a16}
+.dots{display:flex;gap:7px;margin:14px 0 20px}
+.dot{height:6px;flex:1;border-radius:99px;background:#e3e7ee;transition:background .3s}
+.dot.done{background:var(--blue)}
+.dot.now{background:var(--gold)}
+.slab{background:#f8f9fc;border:1px solid #e8ecf3;border-radius:15px;padding:16px 18px;margin:13px 0}
+.between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.score{font-size:22px;font-weight:800;color:var(--blue)}
+.slider{width:100%;margin:14px 0 8px;accent-color:var(--blue);height:28px}
+.normchip{display:inline-flex;align-items:center;gap:7px;background:#fdf4e3;border:1px solid #ecd9ac;color:#7c5a17;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:650;margin-bottom:6px}
+.note-dark{background:#17263f;color:#dbe4f2;border-radius:14px;padding:15px 17px;margin:14px 0}
+.note-dark b{color:#fff}
+
+/* ---------- character cards ---------- */
+.cast{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin:16px 0}
+.actor{background:#f8f9fc;border:1px solid #e8ecf3;border-radius:15px;padding:12px 8px;text-align:center;transition:transform .25s ease,box-shadow .25s ease}
+.actor.me{border-color:#b9c8f5;background:#f2f5ff}
+.actor.pop{transform:translateY(-3px);box-shadow:0 8px 18px #12203a14}
+.face{width:52px;height:52px;margin:0 auto 6px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:27px;transition:transform .3s ease}
+.actor.pop .face{transform:scale(1.12)}
+.actor .aname{font-weight:750;font-size:14px}
+.actor .atag{font-size:11px;color:var(--muted)}
+.actor .alast{font-size:11px;color:#41537a;background:#e9edf6;border-radius:8px;padding:2px 7px;display:inline-block;margin-top:5px}
+.bubble{position:relative;background:#17263f;color:#e7edf7;font-size:12px;border-radius:11px;padding:7px 10px;margin-top:8px;text-align:left;animation:bubblein .4s ease}
+.bubble:before{content:"";position:absolute;top:-6px;left:50%;margin-left:-5px;border:6px solid transparent;border-top:0;border-bottom-color:#17263f}
+@keyframes bubblein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- results ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin:16px 0}
+.stat{background:#f8f9fc;border:1px solid #e8ecf3;border-radius:14px;padding:13px 15px}
+.stat small{color:var(--muted);display:block}
+.stat b{font-size:24px}
+.stat.positive b{color:var(--green)}
+.stat.negative b{color:#9a4f43}
+.label{font-size:13px;font-weight:750;color:var(--muted);margin:18px 0 8px}
+.standing{display:grid;grid-template-columns:minmax(90px,150px) 1fr minmax(58px,auto);align-items:center;gap:10px;padding:6px 0}
+.barbg{height:12px;background:#edf0f6;border-radius:99px;overflow:hidden}
+.bar{height:100%;background:linear-gradient(90deg,#5d7fe8,#4169e1);border-radius:99px;width:0;transition:width .7s cubic-bezier(.22,.9,.35,1)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#eef1f7;border:1px solid #dde3ee;border-radius:999px;padding:4px 11px;font-size:12px}
+.punishbox{border:1px dashed #e0b3a8;background:#fdf5f2;border-radius:14px;padding:15px 17px;margin:14px 0}
+.ptarget{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #f3e2dc}
+.ptarget:last-child{border-bottom:0}
+
+/* ---------- finished / chart ---------- */
+.chartbox{background:#f8f9fc;border:1px solid #e8ecf3;border-radius:14px;padding:14px;margin-top:8px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:99px;margin-right:5px;vertical-align:middle}
+
+/* ---------- table ---------- */
+.tablewrap{overflow:auto;margin:12px 0;border:1px solid var(--line);border-radius:12px}
+.table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+.table th,.table td{padding:9px 12px;text-align:left;border-bottom:1px solid #eef1f5}
+.table th{background:#f6f8fb;font-size:12px;color:var(--muted)}
+#status{font-size:13px;color:var(--green);min-height:20px}
+
+/* ---------- misc ---------- */
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px}
+.footer button{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:12px;padding:0}
+.viewfade{animation:viewin .35s ease}
+@keyframes viewin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+body.reduce-motion *,body.reduce-motion *:before,body.reduce-motion *:after{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(max-width:660px){
+  main{padding:11px 11px 45px}
+  .hero{padding:23px 20px}
+  .card{padding:19px 16px}
+  .select-grid{grid-template-columns:1fr}
+  .stats{gap:7px}
+  .stat{padding:11px}
+  .stat b{font-size:21px}
+  .btns{flex-direction:column}
+  .btns .btn{width:100%}
+  .standing{grid-template-columns:minmax(70px,100px) 1fr minmax(50px,auto)}
+}
+
+/* 今晚还亮着灯 */
+:root{--bg:#f3f0e9;--blue:#316a69;--light:#e9f3ef;--gold:#b67a37}
+.hero{background:radial-gradient(ellipse at 85% 15%,#b5844244,transparent 40%),linear-gradient(125deg,#173431,#152b36 80%)}
+.overline{color:#798c87}.hero .overline{color:#bad6c7}
+.hero h1 small{display:block;font-size:15px;font-weight:450;letter-spacing:3px;color:#dbceb3;margin-top:14px}
+.scene{border-radius:16px;background:#f6f1e7;border:1px solid #e7ddc9;padding:20px;margin:16px 0}
+.scene .scene-meta{color:#896130;font-size:12px;letter-spacing:1px}.scene h3{font-size:22px;margin:5px 0}
+.scene p{margin-bottom:0;color:#52625e}.lamp{display:flex;gap:14px;align-items:center;background:#203b38;color:#edf4eb;border-radius:14px;padding:14px 17px;margin-top:16px}
+.lamp-icon{font-size:30px}.lamp-info{flex:1}.lamp-track{height:6px;background:#ffffff22;border-radius:8px;overflow:hidden;margin:8px 0}.lamp-fill{height:100%;background:#eacb86;transition:width .4s}
+.lamp small{color:#d4ded8}.talk-options{display:grid;gap:8px;margin:12px 0}.talk-choice{text-align:left;background:white;border:1px solid #c8d7d0;border-radius:12px;min-height:48px;padding:11px 14px;color:#244743}
+.talk-choice:hover{background:#edf5f0}.talk-choice[aria-pressed=true]{border:2px solid #316a69;background:#e6f1eb}.talk-line{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #dde6df;font-size:14px}.talk-line:last-child{border:0}.talk-line b{color:#306862}.talk-line p{margin:0;overflow-wrap:anywhere}
+.talk-line.player{background:#eef4ef;border-radius:9px;padding:11px}.transcript{margin:14px 0;padding:16px;background:#f7f8f4;border:1px solid #e0e5dc;border-radius:14px}.transcript h3{margin-bottom:8px}
+.mini-controls{display:flex;gap:8px;flex-wrap:wrap}.mini-controls button{min-width:44px;min-height:44px;border:1px solid #cfdbd4;background:#fff;border-radius:10px;color:#244743;padding:7px 13px}.insight{border-left:3px solid #b89155;padding:8px 14px;margin:16px 0;color:#58675f;font-size:13px}
+.ending-title{font-size:28px;color:#235954}.moment{margin:12px 0;padding:12px;background:#faf7ef;border-radius:12px}.details-panel{margin-top:20px}.details-panel summary{cursor:pointer;min-height:44px;padding:10px 0;font-weight:650}.details-panel a{color:#276968}.review-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}.review-grid .slab{margin:0}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #b67a37;outline-offset:3px}button{touch-action:manipulation}.footer button{min-height:44px;padding:8px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media(max-width:660px){.cast{grid-template-columns:repeat(2,minmax(0,1fr))}.review-grid{grid-template-columns:1fr}.scene{padding:16px}.talk-line{grid-template-columns:48px 1fr;gap:8px}.hero h1 small{font-size:13px}.ptarget{flex-wrap:wrap}.ptarget label{min-height:44px;display:flex;align-items:center}.name{font-size:16px}}
+
+
+/* 房间舞台 */
+main{max-width:1160px}.hero{padding:22px 28px}.theatre{background:#142e34;border:1px solid #36545a;border-radius:20px;overflow:hidden;margin:16px 0;box-shadow:0 20px 45px #142e3420;position:relative}.theatre svg{width:100%;max-height:370px;display:block}.theatre-top{display:flex;justify-content:space-between;gap:10px;padding:14px 18px 0;color:#c4d3ce;font-size:11px;letter-spacing:1px}.theatre-top b{letter-spacing:0;color:#eadbb3}.facility-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:0 16px}.facility{border:1px solid #6a86854d;border-radius:12px;background:#ffffff06;color:#8da6a6;min-height:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;gap:2px}.facility span{font-size:20px;filter:grayscale(1);opacity:.55}.facility small{font-size:11px}.facility b{font-size:10px;font-weight:500}.facility.built{color:#f2ddae;background:#e2be6e13;border-color:#c3aa6d66}.facility.built span{filter:none;opacity:1}.room-detail{color:#a9bfba;margin:12px 18px 17px;min-height:20px}.event-banner{display:flex;align-items:center;gap:14px;border-radius:14px;border:1px solid #ccdacf;background:#eef4ec;padding:14px 16px;margin:14px 0}.event-banner p{margin:4px 0 0;font-size:12px;color:#5c7069}.event-banner.storm{background:#e6eef5;border-color:#b4c9d7}.event-banner.open{background:#fcf0d9;border-color:#e5cea1}.event-icon{font-size:29px}.action-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.action-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:1px solid #d9dfd4;background:#fffdf8;color:#304f48;padding:13px;border-radius:13px;min-height:140px}.action-card span{font-size:26px}.action-card b{margin:6px 0}.action-card small{font-size:11px;line-height:1.6;color:#6a776b}.action-card.selected{border:2px solid #387d6b;background:#e9f2e9;padding:12px}.chain-hint{padding:12px 0;font-size:12px;color:#8d631f}.chain-hint span{color:#7b847d}.reward-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px;border-radius:15px;background:#eef3e8}.reward-row small{color:#6b7b60;display:block}.reward-row b{font-size:30px;color:#3b7256}.reward-row b span{font-size:13px}.combo-reward{font-size:19px;font-weight:800;color:#a57118;animation:reward-pop .6s}.save-reward{font-weight:700;font-size:14px;color:#3d6585}.unlock-banner{padding:15px;margin-top:10px;background:#f7e8c5;border:1px solid #dec58d;color:#815a1f;border-radius:12px;font-weight:750;animation:reward-pop .6s}.just-unlocked{box-shadow:0 0 0 3px #d4b56f66,0 20px 45px #142e3420}.project-panel{padding:20px;border:1px solid #ccd9d0;border-radius:15px;background:#f0f5ef;margin-top:20px}.project-panel p,.project-panel li{font-size:13px}.project-panel ol{padding-left:22px}.play-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}.play-layout .scene{margin-top:0}.decision-column{min-width:0}.visual-column{min-width:0}.decision-column>.slab{margin-top:12px}#scenePanel{background:transparent;border:0;padding:4px 0 10px;margin:0}#scenePanel p{font-size:13px}#scenePanel h3{font-size:21px}.story-fold{border-bottom:1px solid #e2e6dc;padding-bottom:10px;margin-bottom:12px}.story-fold summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:9px;color:#4e6c5f;font-size:13px;font-weight:650}#actionPanel{margin:18px 0}#roomProgress .lamp{margin:0;background:#eef2e8;color:#3b5d49}#roomProgress .lamp small{color:#6a7b68}#roomProgress .lamp-track{background:#d3dfce}#roomProgress .lamp-fill{background:#78986b}.btn{background:#356f60}.btn.secondary{background:#eaf0e9;color:#365f50}.pill{background:#e5efe8;color:#356353}.slider{accent-color:#356f60}.dot.done{background:#356f60}.card{border-color:#e0e3d7}#castPlay{margin:10px 0;grid-template-columns:repeat(4,minmax(0,1fr))}#castPlay .face{width:36px;height:36px;font-size:22px}#castPlay .actor{padding:9px 4px}#castPlay .atag{font-size:10px}#castPlay .alast{font-size:10px}#castPlay .aname{font-size:12px}.rule-note{font-size:12px;color:#657967;padding:10px 0}#projectCode{font-size:16px}.hero h1{font-size:32px}.hero .tags{margin-top:12px}
+@keyframes reward-pop{0%{transform:translateY(6px) scale(.95);opacity:.2}70%{transform:translateY(-2px) scale(1.02)}100%{transform:none;opacity:1}}
+@media(max-width:800px){.play-layout{grid-template-columns:1fr;gap:8px}.theatre svg{max-height:300px}.action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.action-card{min-height:122px}.theatre{margin:8px 0 14px}.visual-column .cast{margin-bottom:8px}.hero{padding:19px 20px}.hero h1{font-size:28px}.hero .tags{gap:5px}.tag{font-size:10px;padding:3px 8px}.reward-row{flex-wrap:wrap}.combo-reward{font-size:17px}.theatre-top{padding:12px 13px 0;font-size:10px}.facility-strip{padding:0 10px;gap:5px}.facility{min-height:69px}.facility small{font-size:10px}}
+
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <div class="overline">A SMALL GROUP GAME</div>
+  <h1>同一间自习室<small>点亮计划 · 八轮共同冒险</small></h1>
+  <p>修好一间旧屋子，接住一场突如其来的雨，也试着看懂身边的人。你们能在闭馆前，把灯点亮吗？</p>
+  <div class="tags"><span class="tag">约 10 分钟</span><span class="tag">设施解锁 / 合作连锁</span><span class="tag">会记住选择的对话</span><span class="tag">单人 / 同学面对面</span><span class="tag">离线可玩</span><span class="tag">导出 CSV / JSON</span></div>
+</header>
+
+<!-- ============ 设置 ============ -->
+<section class="card" id="setup">
+  <h2>开一局</h2>
+  <p class="muted">雨夜，几位同学想一起修缮旧自习室。每人都想让这里变好，也都舍不得手里的点数。你会怎样开口，又怎样行动？</p>
+  <div class="select-grid">
+    <button class="mode selected" id="soloMode" type="button"><strong>🎮 单人挑战</strong><small>你 + 3 位电脑玩家，每人都有自己的脾气</small></button>
+    <button class="mode" id="localMode" type="button"><strong>👥 好友轮流</strong><small>3–5 位真人，共用一台设备，轮流作答</small></button>
+  </div>
+  <div id="teamCountArea" class="group hide">
+    <label for="teamCount"><b>参加人数</b></label>
+    <select class="number" id="teamCount"><option value="3">3 人</option><option value="4">4 人</option><option value="5">5 人</option></select>
+  </div>
+  <div class="names" id="names"></div>
+  <div class="group"><label for="condition"><b>这次怎样体验？</b></label><select class="number" id="condition"><option value="adventure">剧情挑战 · 道具、事件、连锁，全程记录</option><option value="standard">标准记录 · 固定收益规则，适合统一组织项目</option></select><p class="notice">两套规则都能导出数据。组织项目时请固定玩法、人数与进阶设置；不同条件会单独标记。</p></div>
+  <details class="details-panel"><summary>项目标记（可选，不填也能玩）</summary><label for="projectCode" class="small">用同一个项目代号归类多场数据</label><input class="name" id="projectCode" maxlength="24" placeholder="例如：自习室试调研01" autocomplete="off"></details>
+
+  <label class="switchline" for="advancedMode">
+    <input type="checkbox" id="advancedMode">
+    <span><b>进阶规则</b>（可选）：开局共同约定一个投入目标；第 5–8 轮可以花 1 点扣除他人 3 点。</span>
+  </label>
+  <div class="group hide" id="normArea">
+    <label for="normSelect"><b>本局约定（没有约束力，全靠自觉）</b></label>
+    <select class="number" id="normSelect">
+      <option value="2">每人每轮建议投入 2 点</option>
+      <option value="4">每人每轮建议投入 4 点</option>
+      <option value="6" selected>每人每轮建议投入 6 点</option>
+      <option value="8">每人每轮建议投入 8 点</option>
+      <option value="10">每人每轮建议投入 10 点</option>
+    </select>
+  </div>
+
+  <div class="ruleband">
+    <b>玩法</b>
+    <p>每人每轮有 <b>10</b> 点。你可以保留或投入共用池。共用池会变成投入总数的 <b>1.6 倍</b>，再由所有人平分。</p>
+    <p>标准记录中，本轮得分 = 留下的点数 + 分到的共用池点数，即 <b>10 − 自己投入 + 0.4 × 全组总投入</b>（4 人局）。</p>
+    <p class="small muted">标准记录固定 1.6 倍；剧情挑战会提前明示本轮倍数，使用行动卡另扣 1 分。人数为 3–5 人；无论哪种玩法，个人多投 1 点的直接回报都小于 1 点。</p>
+    <p class="small muted">第 1–4 轮只公开团队总额，不公开个人得分；第 5 轮起可以查看上一轮个人投入，本轮结算也公开个人记录。每轮重新获得 10 点。</p>
+  </div>
+  <p class="notice">单人局每轮可选一次接话，也可直接决策。不同性格会有不同回应。标准记录中沟通不改变模拟投入；挑战模式中最多改变 1 点，也可能适得其反。行动卡与事件会改变挑战模式的收益，规则会提前显示。设施与连锁只影响修缮，不额外加分。角色采用离线规则与预写台词，不是联网 AI。好友局不代替真人发言。</p>
+  <button class="btn full" id="start">开始游戏 →</button>
+  <p class="notice">仅存储在当前设备的浏览器中；不会上传任何数据。不需要填写真实姓名。</p>
+</section>
+
+<!-- ============ 交接 ============ -->
+<section class="card hide" id="handoff">
+  <div class="step"><span class="pill" id="handoffRound"></span><span class="muted small" id="handoffPosition"></span></div>
+  <div class="reveal">🔒 请把设备交给 <span id="handoffName"></span></div>
+  <p class="muted" style="text-align:center">其他人请暂时不要看屏幕。准备好后再进入。</p>
+  <button class="btn full" id="enter">轮到我了 →</button>
+</section>
+
+<!-- ============ 作答 ============ -->
+<section class="card hide" id="play">
+  <div class="step"><div><div class="overline">YOUR MOVE</div><h2 id="roundTitle">第 1 轮</h2></div><span class="pill" id="stage"></span></div>
+  <div class="dots" id="dots"></div>
+  <div class="play-layout"><div class="visual-column"><div id="theatrePlay"></div><div id="roomProgress"></div><div class="cast" id="castPlay"></div></div><div class="decision-column"><div class="scene" id="scenePanel"></div><div id="eventBanner"></div><details class="story-fold"><summary>💬 桌边互动 · 试探、解释，或找一个搭档</summary><div id="talkPanel"></div></details><div id="actionPanel"></div>
+  <div id="normChipArea"></div>
+  <div class="row wrap"><b id="playerLabel">你来决定</b><span class="muted small">每人本轮 10 点</span></div>
+  <div class="slab">
+    <div class="between"><label for="contribution"><b>投入共用池</b></label><span class="score"><span id="contributionValue">5</span><span class="muted small"> / 10</span></span></div>
+    <input id="contribution" class="slider" type="range" min="0" max="10" value="5" step="1">
+    <div class="between small muted"><span>0 · 全留给自己</span><span>10 · 全部投入</span></div><div class="mini-controls" id="quickContribution" aria-label="快捷调整投入"><button type="button" data-value="0">0</button><button type="button" data-value="3">3</button><button type="button" data-value="6">6</button><button type="button" data-value="10">10</button></div><p class="small muted" id="payoffPreview" aria-live="polite"></p>
+  </div>
+  <div class="slab">
+    <div class="between"><label for="forecast"><b>猜猜其他人平均会投入多少？</b></label><b><span id="forecastValue">5</span> / 10</b></div>
+    <input id="forecast" class="slider" type="range" min="0" max="10" value="5" step="1">
+    <div class="between small muted"><span>0</span><span>10</span></div>
+  </div>
+  <div class="note-dark hide" id="historyHint"></div>
+  <button class="btn full" id="submit">确认选择 →</button>
+  <p class="notice">确认后本轮无法修改。每个人的投入和行动卡会等到所有人提交后统一结算。</p></div></div>
+</section>
+
+<!-- ============ 结算 ============ -->
+<section class="card hide" id="results">
+  <div class="step"><div><div class="overline">ROUND COMPLETE</div><h2 id="resultsTitle"></h2></div><span class="pill" id="resultStage"></span></div>
+  <div id="theatreResults"></div><div id="actionResults"></div><div class="stats">
+    <div class="stat positive"><small>本轮共用池投入</small><b id="poolTotal"></b></div>
+    <div class="stat"><small>本轮人均得分</small><b id="meanPayoff"></b></div>
+    <div class="stat"><small>本轮团队总得分</small><b id="groupScore"></b></div>
+    <div class="stat negative"><small>全员保留且不用道具时团队分</small><b id="baseline"></b></div>
+  </div>
+  <div class="label">本轮得分</div>
+  <div class="standings" id="standingBoard"></div>
+  <div class="cast" id="castResults"></div><div id="roundConversation"></div><div id="roundInsight" class="insight"></div>
+  <div class="note-dark hide" id="publicContributions"></div>
+  <div class="punishbox hide" id="punishBox"></div>
+  <button class="btn full" id="next">进入下一轮 →</button>
+</section>
+
+<!-- ============ 惩罚环节（多人进阶） ============ -->
+<section class="card hide" id="punish">
+  <div class="step"><div><div class="overline">PUNISH OR NOT</div><h2>惩罚环节</h2></div><span class="pill orange">可选</span></div>
+  <p class="muted" id="punishIntro"></p>
+  <div id="punishTargets"></div>
+  <button class="btn full" id="punishDone" style="margin-top:14px">好了 →</button>
+</section>
+
+<!-- ============ 终局 ============ -->
+<section class="card hide" id="finished">
+  <div class="overline">FINAL SCORES</div>
+  <div id="storyEnding"></div><h2>今晚的记录</h2>
+  <p class="muted">下面的结尾来自你们实际的选择。现在可以回看所有轮次的个人记录、对话与投入走势，也可以导出。</p>
+  <div class="stats">
+    <div class="stat"><small>前 4 轮平均团队投入</small><b id="avgFirst"></b></div>
+    <div class="stat"><small>后 4 轮平均团队投入</small><b id="avgLast"></b></div>
+    <div class="stat"><small>团队八轮总投入</small><b id="sumTotal"></b></div>
+  </div>
+  <div id="personalReview"></div><div id="projectGuide"></div><details class="details-panel"><summary>翻看今晚的聊天与关键时刻</summary><div id="storyArchive"></div></details><div class="label">每人每轮投入走势（终局揭晓全部记录）</div>
+  <div class="chartbox"><div id="chart"></div><div class="legend" id="chartLegend"></div></div>
+  <div class="label">总积分</div>
+  <div class="standings" id="finalStanding"></div>
+  <div class="btns" style="margin-top:18px">
+    <button class="btn" id="exportCsv">导出 CSV 表格</button>
+    <button class="btn secondary" id="exportJson">备份 JSON</button>
+  </div>
+  <p class="notice">CSV 每行对应一个玩家的一轮决策；电脑玩家会明确标记为“模拟”，其决策由内置行为模型生成，不代表真实人类行为。</p>
+  <button class="btn ghost full" id="restartFinal" style="margin-top:12px">再来一局</button>
+</section>
+
+<!-- ============ 记录 ============ -->
+<section class="card hide" id="recordPanel">
+  <div class="row wrap"><div><div class="overline">GAME LOG</div><h2>游戏记录</h2></div><span class="pill" id="recordCount">0 / 8 轮</span></div>
+  <div class="tablewrap"><table class="table">
+    <thead><tr><th>轮次</th><th>阶段</th><th>团队投入</th><th>团队总得分</th><th>人均投入</th><th>公开个人贡献</th><th>惩罚</th></tr></thead>
+    <tbody id="recordRows"></tbody>
+  </table></div>
+  <div class="btns"><button class="btn secondary" id="exportPartial">下载当前 CSV</button><button class="btn ghost" id="reset">清除本局并重开</button></div>
+  
+</section>
+
+<p id="status" role="status" aria-live="polite"></p><details class="card details-panel"><summary>这次为什么这样改？查看设计与资料</summary><p>领域：互动叙事、角色编剧、行为经济学、移动交互与游戏系统。以下是模拟专业视角，不是真实采访或专家原话。</p><p><b>叙事设计师：</b>“八轮应该像一个晚上，不是八次重复填表。公开记录、再次尝试和闭馆，都能成为自然的转折。”</p><p><b>游戏编剧：</b>“给每个人不同的顾虑；让同一句鼓励遇到不同的人，得到不同回应。台词要承认犹豫，也要容纳玩笑。”</p><p><b>实验经济学研究者：</b>“保持个人收益和集体收益之间的张力。对话只能有限影响模拟行为，不能把鼓励写成必胜按钮。前后阶段对比只能描述本局，不能证明因果。”</p><p><b>交互设计师：</b>“一轮只加一次可选接话，支持直接跳过。触控按钮、清晰的进度和减少动画，都比装饰性弹窗重要。”</p><p><b>系统工程师：</b>“角色只评论有权知道的信息；存档要记住对话和草稿，惩罚要有真实成本，刷新不能重抽结果。”</p><p>综合方案：八幕连续情境＋按性格与事件分流的台词＋对话记忆与接话＋修缮共同目标＋记录驱动结局。核心投入结构保留；标准记录固定收益，挑战模式将所有变化记录为明确字段；标准记录修缮目标为人数 × 8 × 6 点；挑战模式为人数 × 8 × 7 点，含行动卡、事件和修缮连锁。设施只给视觉与故事奖励，没有额外积分。</p><p>边界：匿名阶段角色可以表达自己的感受，但不点名评论别人的具体投入；离线共享设备不能防止查看源代码，导出与完整个人明细在终局开放。模拟角色与参数未经人类行为实验验证。</p><p>参考：<a href="https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md" target="_blank" rel="noopener">inkle 官方互动叙事指南</a>；<a href="https://arxiv.org/abs/0908.3497" target="_blank" rel="noopener">Fowler 与 Christakis：合作行为的传播实验</a>；<a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">W3C 触控目标大小</a>；<a href="https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html" target="_blank" rel="noopener">W3C 减少交互动画</a>。玩法为基于这些方向的原创设计，不是对上述研究的复现。</p></details>
+<details class="card details-panel"><summary>本机项目记录 · 多局汇总</summary><p class="small" id="archiveSummary"></p><p class="notice">完成一局后会自动归档到当前浏览器；重新开局保留历史。汇总 CSV 中仍会区分规则、项目代号、场次与真人/模拟。换浏览器或清理数据会丢失本机记录，请及时导出。</p><button class="btn secondary full" id="exportArchive">导出本机历史 CSV</button></details>
+<div class="footer">纯离线小游戏 · 所有点数为游戏积分，不涉及真实金钱 · <button id="motionToggle" type="button">减少动画</button></div>
+
+</main>
+
+<script>
+/* === PURE LOGIC START === */
+/* 本区块为纯逻辑：随机数、行为画像、agent 决策、收益计算。
+   不访问 DOM，可被外部测试脚本抽取后直接运行。 */
+var GAME_LOGIC=(function(){
+'use strict';
+
+/* 可复现随机数：mulberry32 */
+function mulberry32(seed){
+  var a=seed>>>0;
+  return function(){
+    a=a+0x6D2B79F5|0;
+    var t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return((t^t>>>14)>>>0)/4294967296;
+  };
+}
+function roundSeed(seed,round,salt){return (seed ^ Math.imul(round+1,7919) ^ Math.imul(salt+1,104729))>>>0;}
+
+/* 行为画像：只影响倾向，不写死任何投入序列 */
+var PROFILES={
+  conditional:{label:'条件合作型',base:6.0,follow:0.75,adapt:0.25,envy:0.8,noise:1.2,punishP:0.25},
+  freerider:  {label:'搭便车型',  base:0.2,follow:0.01,adapt:0.0,envy:0.1,noise:0.5,punishP:0.0},
+  fairness:   {label:'公平敏感型',base:6.5,follow:0.35,adapt:0.12,envy:1.6,noise:1.0,punishP:0.55},
+  generous:   {label:'慷慨型',    base:7.5,follow:0.20,adapt:0.08,envy:0.5,noise:1.2,punishP:0.08}
+};
+var PROFILE_KEYS=Object.keys(PROFILES);
+
+/* 用种子从 4 种画像中不重复地抽取 count 个，顺序随机 */
+function drawProfiles(seed,count){
+  var rng=mulberry32(seed^0x9e3779b9);
+  var pool=PROFILE_KEYS.slice();
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(rng()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+  return pool.slice(0,count);
+}
+
+function newAgent(profileKey){
+  var p=PROFILES[profileKey];
+  return {profile:profileKey,base:p.base,lastOwn:null};
+}
+
+function clamp(x,lo,hi){return Math.max(lo,Math.min(hi,x));}
+
+/* agent 决策。
+   agent: newAgent() 的状态（会被原地更新，体现“随时间变化”）
+   info : { perceived: 上轮其他人平均投入（第 1 轮为 null）, norm: 约定值或 null }
+   rng  : 本轮专用随机流
+   信息约束：第 1–4 轮只有团队总额公开，perceived 由 (总额−自己)/(人数−1) 推出，
+   agent 无法知道任何个人的具体投入。 */
+function decide(agent,info,rng){
+  var p=PROFILES[agent.profile];
+  var perceived=info.perceived;
+  /* 慢速适应：基准向感知到的他人均值漂移（搭便车型几乎不动） */
+  if(perceived!=null){
+    agent.base=clamp(agent.base+p.adapt*(perceived-agent.base),0,10);
+  }
+  var x=agent.base;
+  if(perceived!=null){
+    /* 跟随：向他人均值靠拢 */
+    x=agent.base+p.follow*(perceived-agent.base);
+    /* 不公平感知：我投得比别人多 → 下调 */
+    var gap=(agent.lastOwn==null?0:agent.lastOwn)-perceived;
+    if(gap>0)x-=p.envy*gap*0.4;
+  }
+  /* 约定：重视他人行为的类型会被非约束性约定轻轻拉动 */
+  if(info.norm!=null&&p.follow>0.3){
+    x=x*0.85+info.norm*0.15*p.follow;
+  }
+  /* 被惩罚后的反应：可能收敛一点，也可能无动于衷（不保证惩罚有效） */
+  if(info.punished&&rng()<0.5+p.follow*0.3){
+    x+=1.0+p.follow;
+  }
+  /* 有界噪声 */
+  x+=(rng()*2-1)*p.noise;
+  var contribution=clamp(Math.round(x),0,10);
+  /* 预测：对本轮他人均值的估计（用于数据记录） */
+  var forecast=clamp(Math.round((perceived==null?5:perceived)+(rng()*2-1)*0.8),0,10);
+  agent.lastOwn=contribution;
+  return {contribution:contribution,forecast:forecast};
+}
+
+/* agent 是否发起惩罚（仅进阶模式、个人投入公开后）。
+   返回目标 id 数组（至多 1 个）。 */
+function decidePunish(agent,ownId,actions,groupMean,rng){
+  var p=PROFILES[agent.profile];
+  if(p.punishP<=0)return[];
+  var own=actions.find(function(a){return a.id===ownId;});
+  if(!own)return[];
+  var candidates=actions.filter(function(a){
+    return a.id!==ownId&&a.contribution<=2&&groupMean>=4&&(own.contribution-a.contribution)>=3;
+  });
+  if(!candidates.length)return[];
+  if(rng()<p.punishP)return[candidates[0].id];
+  return[];
+}
+
+/* 收益计算：基础得分 = 10 − 自己投入 + 倍数×总投入/人数 */
+function basePayoff(contribution,total,n,multiplier,endowment){
+  return endowment-contribution+multiplier*total/n;
+}
+/* 惩罚：发起者 −cost，目标 −effect */
+function applyPunishment(actions,events,cost,effect){
+  actions.forEach(function(a){a.punishGiven=0;a.punishReceived=0;});
+  events.forEach(function(e){
+    var from=actions.find(function(a){return a.id===e.from;});
+    var to=actions.find(function(a){return a.id===e.to;});
+    if(from)from.punishGiven+=cost;
+    if(to)to.punishReceived+=effect;
+  });
+  actions.forEach(function(a){a.payoff=a.payoffBase-(a.punishGiven||0)-(a.punishReceived||0);});
+}
+
+return {
+  mulberry32:mulberry32,roundSeed:roundSeed,
+  PROFILES:PROFILES,drawProfiles:drawProfiles,newAgent:newAgent,
+  decide:decide,decidePunish:decidePunish,
+  basePayoff:basePayoff,applyPunishment:applyPunishment,clamp:clamp
+};
+})();
+/* === PURE LOGIC END === */
+</script>
+
+<script>
+var GAME_STORY=(function(){
+'use strict';
+var scenes=[
+ ['19:10','第一次碰面','旧自习室的灯闪了两下。桌角贴着一张便签：一起攒点数，把这里收拾成愿意再来的地方。谁也没先碰中间的盒子。',['先试一轮吧，别急着把彼此想得太坏。','我们先把账算明白，再决定投多少。','我先看看，大家按自己的想法来。']],
+ ['19:25','杯底的水印','有人把纸巾垫在漏水的杯子下面。刚才的结果还留在屏幕上，这回大家拨动滑条的手都慢了一点。',['上一轮就当试水，我们可以重新开始。','我想听听，你们最担心什么？','先不立目标，看下一轮能不能稳定下来。']],
+ ['19:40','那张没写完的便签','窗外开始下雨。桌上的便签多了一行字：“如果别人都少投，我还要继续吗？”没有署名。',['愿意投的人，我有看见。','只劝别人投入不够，还是得看行动。','我们给彼此留一点犹豫的空间。']],
+ ['19:55','公开之前','再过一轮，个人投入就会摆到桌面上。有人开玩笑说，这比期中成绩公示还紧张，笑声却没持续多久。',['公开之后也别急着给人贴标签。','先说好，我们讨论选择，不攻击人。','我想先安静做完这一轮。']],
+ ['20:10','把记录摊开','屏幕第一次显示上一轮每个人的投入。原先只能猜的事情，现在有了名字；但名字旁边的数字，也不是一个人的全部。',['先给彼此一次解释和调整的机会。','现在能看清了，我们按记录说话。','我先消化一下，不急着表态。']],
+ ['20:25','第二次机会','雨小了，有人把窗户推开一点。比起谁上一轮得了第一，大家开始在意：同样的事情，会不会再发生一次。',['如果想调整，这轮就是机会。','比起保证，我更想看到连续的行动。','不用现在答应我，自己决定就好。']],
+ ['20:40','离闭馆还有一会儿','走廊的灯灭了一半。有人开始收笔，有人把公共盒子往桌中间推了推。还有两轮，足够改变一点，也可能什么都不改变。',['还有两轮，我想好好收尾。','最后这段，我们把付出和代价都看清。','先别谈结局，这轮我自己想一想。']],
+ ['20:55','最后一盏灯','广播提醒准备闭馆。桌上的便签已经写满，最后一行还空着。今晚的结尾，轮到你们用行动补上。',['最后一次了，试着留个愿意再来的理由。','最后一轮也算数，别让前面的约定变成空话。','不煽情了，我按自己的判断做最后一个选择。']]
+];
+var replies={
+ conditional:[['你先这么说，我愿意再试试。不过我也会看大家接下来怎么做。','嗯，一轮说明不了所有事。我先把门留着。','好，那这轮先别互相试探到最后都不敢动。'],['我担心的就是：大家嘴上说一起，最后只有几个人当真。','账我懂。我还想知道，下轮别人会不会也愿意接着投。','有记录挺好，至少不用靠猜对方的心思。'],['可以。那我先按已经看到的情况来。','不说也行，下一轮的行动会告诉我一点。','那就先给彼此留点余地。']],
+ freerider:[['话挺暖的。但我先说，我还是会算自己的分。','你这么认真，我倒有点不好意思只顾自己了……一点点。','我听见了。不过别把这一句当保证啊。'],['那我直说：多投一分，我自己可不一定划算。','大家都喜欢共用池变大，只是不一定都想自己出。','算账没问题。算完之后，我们可能还是选得不一样。'],['行，终于有人不催我表态了。','那我就不装热血了，待会儿看结果。','好，安静两分钟，我也想想。']],
+ fairness:[['可以重新试，但之前的落差我不会当没发生过。','我愿意给机会。只是机会最好别总靠同一个人买单。','嗯，别让愿意出力的人觉得自己傻就行。'],['我最在意的不是输一两分，是总有人把别人的付出当理所当然。','说清楚挺好。大家都保留一点，和只有一个人一直保留，不一样。','那我们就看记录。愿意改，我也会看见。'],['我尊重你不表态。但我也会保留自己的判断。','可以先不谈，结果出来我们再看。','好。少一点压力，也许能看见更真实的选择。']],
+ generous:[['好啊。今天已经够累了，我希望这张桌子让人舒服一点。','听见这句还挺开心的。那就再往前走一点。','嗯，至少今晚我们还在一起想办法。'],['我也会心疼自己的分，只是共用的东西变好，我同样会开心。','别把话说得太满。留一点能做到的，比保证全部好。','把代价说清楚也好，愿意做才是真的愿意。'],['好，安静一会儿也挺好。雨声刚好。','没事，不用每一轮都给自己一个漂亮的理由。','那我把便签放这里，想说的时候再说。']]
+};
+var lines={
+ conditional:{
+ up:['这轮比上轮多了 {delta} 点。我开始觉得，可以再信一点。','刚才还在犹豫，现在又有点想继续了。'],
+ down:['少了 {delta} 点……我得重新想想自己是不是太乐观。','我不是不愿意投，只是想知道有没有人在一起走。'],
+ high:['这个总额看着挺踏实。下轮我愿意继续观察。','原来大家真的能往一处使劲，我刚才还担心来着。'],
+ gap:['我出的比别人平均多，心里还是有点打鼓。','如果下轮还是这样，我可能就得往回收一点了。'],
+ low:['共用池这么小，谁都没多拿到多少。我们是不是都在等别人先动？','我在等你们，你们也在等别人。结果就一起停在这儿了。'],
+ calm:['没有突然变好，也没有突然散掉。再看一轮吧。','我还在观察。不过至少我们没有离桌。'],
+ punished:['被扣了分，我肯定不舒服。但我也会想想接下来怎么办。','收到这个提醒了。我不保证立刻变样，但不会当没看见。'],
+ punisher:['这一分我也花得心疼。希望下轮不用再这么提醒。','我付了代价，不是为了让所有人更难受。']},
+ freerider:{
+ up:['池子变大了，这个结果我当然喜欢。至于下轮嘛……','这次大家挺给力。嗯，我知道我这句听着有点欠。'],
+ down:['总额掉了 {delta} 点。好吧，光想着省自己的，也会省成这样。','大家都收手的时候，我也没占到多大便宜。'],
+ high:['这桌效率不错啊。我先收下自己那份。','你们是真的想把这里弄好。看出来了。'],
+ gap:['这轮我也没少出。可别一看我平时爱算账，就当我永远不出。','我也有觉得值得多拿一点出来的时候。'],
+ low:['池子空成这样，连我都觉得没什么意思。','本来想搭车，结果发现车根本没发动。'],
+ calm:['我先看看分。你们聊，我有在听。','别看我总在算，我也不是没注意这张桌子的气氛。'],
+ punished:['行，扣到了。只是你也花了分，这笔账咱们都不轻松。','我确实少拿了。但要说服我，下轮可能还得看点别的。'],
+ punisher:['我居然也花分提醒别人了。今天这事真够绕的。','这次我出了提醒的成本，别当我只会往回拿。']},
+ fairness:{
+ up:['多了 {delta} 点，至少不是一句“下轮再说”就过去了。','我没那么生气了。有人在调整，我看得到。'],
+ down:['总额又往下走。我在意的，是愿意投的人会不会先累。','大家一起缩回去，最后就真的只剩算账了。'],
+ high:['这轮结果不错。等能看清个人记录，再看看是不是大家都参与了。','共用池大了是好事，付出能不能更均衡也值得看。'],
+ gap:['我可以多出一点，但不想被默认成一直多出的那个人。','这次我出的比别人平均多。有点不是滋味，真的。'],
+ low:['我们把自己都保护好了，公共的那一块却快没了。','没人愿意先承担，也就没人能先享受到好处。'],
+ calm:['我不急着说谁好谁坏。连续几轮，才看得更清楚。','先把这一轮记下。公平不是只看谁说得最好听。'],
+ punished:['我也会被提醒。难受归难受，这条规则对我同样适用。','扣分我收到了。不过我也希望我们能把原因讲明白。'],
+ punisher:['我花了分。说实话，我更希望这笔成本根本不用花。','我不是想赢这场争执。我是想让付出有个回应。']},
+ generous:{
+ up:['多了 {delta} 点！旧灯好像都没刚才那么暗了。','你看，真的有人把别人的努力接住了。'],
+ down:['少了 {delta} 点。没关系，先别连说话的心情也一起收回去。','有点可惜。但我还不想用这一轮给今晚下结论。'],
+ high:['这一轮有种“这里是我们的地方”的感觉。','我开始想象下次来这儿，大家会坐在哪里了。'],
+ gap:['我知道自己多出了一点。只是偶尔也想被别人接住。','我愿意多投，不等于我完全不会失落。'],
+ low:['我有点难过。不是为这几分，是觉得大家离得远了。','要不要先承认，我们其实都挺怕自己的好意落空？'],
+ calm:['进度慢一点也行。至少便签上又能多写一行。','我想记住的，不会只有最后那张分数表。'],
+ punished:['被扣分还是会难过。让我缓一下，我们再继续。','原来我的选择也会让人不舒服。我记住这件事了。'],
+ punisher:['我也会有忍不住想提醒的时候。只是这个方式让我不太开心。','这次用了扣分。希望它能让下一轮好一点，而不是更僵。']}
+};
+function choose(pool,seed,round,salt,used){
+ var rng=GAME_LOGIC.mulberry32(GAME_LOGIC.roundSeed(seed,round,salt));
+ var available=pool.filter(function(s){return !used||used.indexOf(s)<0;});
+ if(!available.length)available=pool;
+ return available[Math.floor(rng()*available.length)];
+}
+function reaction(a,row,prev,seed,used){
+ var om=(row.total-a.contribution)/(row.actions.length-1),event='calm';
+ if((row.punishEvents||[]).some(function(e){return e.to===a.id;}))event='punished';
+ else if((row.punishEvents||[]).some(function(e){return e.from===a.id;}))event='punisher';
+ else if(prev&&row.total-prev.total>=4)event='up';
+ else if(prev&&prev.total-row.total>=4)event='down';
+ else if(row.total/row.actions.length>=7)event='high';
+ else if(a.contribution-om>=2.5)event='gap';
+ else if(row.total/row.actions.length<3)event='low';
+ var pool=lines[a.profile][event];
+ var template=choose(pool,seed,row.round,21+Number(a.id.slice(1)),used);
+ return {event:event,template:template,text:template.replace('{delta}',Math.abs(row.total-(prev?prev.total:row.total))),face:({up:'😄',down:'😟',high:'😊',gap:'😕',low:'😔',calm:'🙂',punished:'😣',punisher:'😐'})[event]};
+}
+function reply(profile,intent,seed,round,salt){return choose(replies[profile][intent],seed,round,salt);}
+function influence(profile,intent){return ({conditional:[1,0,0],freerider:[0,0,0],fairness:[0,1,0],generous:[1,0,0]})[profile][intent];}
+return {scenes:scenes,reaction:reaction,reply:reply,influence:influence};
+})();
+
+var ROOM_RULES=(function(){
+'use strict';
+var tools={none:{name:'留一手',icon:'✋',desc:'不花行动券，不另扣分。'},repair:{name:'抢修工具箱',icon:'🧰',desc:'花 1 行动券和 1 分，为团队额外修缮 3 点。'},amp:{name:'社团扩音器',icon:'📣',desc:'花 1 券和 1 分，本轮公共池倍数 +0.2；多人使用不叠加。'},shield:{name:'防雨帆布',icon:'🛡️',desc:'花 1 券和 1 分，暴雨轮恢复 0.3 倍回报并防止修缮折损；多人使用不叠加。'}};
+function eventFor(seed,round,condition){
+ if(condition!=='adventure')return {id:'standard',name:'平稳的一晚',multiplier:1.6,description:'固定 1.6 倍回报，没有行动卡与突发事件。'};
+ if(round!==3&&round!==6)return {id:'calm',name:round===8?'闭馆前的最后冲刺':'修缮时间',multiplier:1.6,description:'每一份投入都让这间屋子更接近你们想要的样子。'};
+ var stormFirst=(seed%2)===0,storm=(round===3)===stormFirst;
+ return storm?{id:'storm',name:'突发 · 雨水涌进来了',multiplier:1.2,description:'本轮回报降至 1.2 倍，修缮只保留 70%。有人用帆布，回报恢复到 1.5 倍且修缮不折损。'}:{id:'open',name:'机会 · 社团开放夜',multiplier:1.9,description:'本轮公共池回报提高到 1.9 倍。谁来出扩音器的成本？一张扩音器还能让回报再提高 0.2 倍。'};
+}
+function resolve(actions,event,priorStreak,adventure){
+ var total=actions.reduce(function(s,a){return s+a.contribution;},0),counts={repair:0,amp:0,shield:0};
+ actions.forEach(function(a){if(counts[a.tool]!==undefined)counts[a.tool]++;});
+ var multiplier=event.multiplier+(counts.amp?0.2:0)+(event.id==='storm'&&counts.shield?0.3:0);
+ var chain=adventure?(total>=actions.length*6?(priorStreak||0)+1:0):0,combo=chain>=2?2:1;
+ var gain=total*(event.id==='storm'&&!counts.shield?0.7:1)+counts.repair*3;
+ return {total:total,multiplier:Math.round(multiplier*10)/10,counts:counts,combo:combo,streak:combo===2?0:chain,repairGain:Math.round(gain*combo*10)/10};
+}
+function botTool(profile,event,tokens,perceived,rng){
+ if(tokens<=0)return 'none';
+ if(event.id==='storm'&&profile!=='freerider'&&rng()<0.65)return 'shield';
+ if(event.id==='open'&&(profile==='conditional'||profile==='generous')&&rng()<0.6)return 'amp';
+ if(profile==='generous'&&rng()<0.22)return 'repair';
+ return 'none';
+}
+return {tools:tools,eventFor:eventFor,resolve:resolve,botTool:botTool};
+})();
+
+(function(){
+'use strict';
+var L=GAME_LOGIC;
+var el=function(id){return document.getElementById(id);};
+var show=function(id,yes){el(id).classList.toggle('hide',yes===false);};
+var SCREENS=['setup','handoff','play','results','punish','finished'];
+function view(id){
+  SCREENS.forEach(function(x){
+    show(x,x===id);
+    if(x===id){el(x).classList.remove('viewfade');void el(x).offsetWidth;el(x).classList.add('viewfade');}
+  });
+  el(id).setAttribute('tabindex','-1');el(id).focus({preventScroll:true});
+  if(!document.body.classList.contains('reduce-motion')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)window.scrollTo({top:0,behavior:'smooth'});
+  else window.scrollTo(0,0);
+}
+var fmt=function(x){return (Math.round(x*100)/100).toFixed(2).replace(/\.00$/,'');};
+var mean=function(a){return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:0;};
+var escapeHtml=function(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');};
+
+var key='cooperate_game_v5';
+var ENDOWMENT=10, MULTIPLIER=1.6, MAX_ROUNDS=8, PUNISH_COST=1, PUNISH_EFFECT=3;
+var mode='solo', game=null;
+
+/* ---------- 持久化 ---------- */
+function save(){try{localStorage.setItem(key,JSON.stringify(game));}catch(e){el('status').textContent='本浏览器无法自动保存。请保持页面打开，完成本局后导出记录。';}}
+function clearSaved(){try{localStorage.removeItem(key);localStorage.removeItem('cooperate_game_v3');localStorage.removeItem('cooperate_game_v4');}catch(e){}}
+
+/* ---------- 视觉房间与挑战机制 ---------- */
+var FACILITIES=[{at:0.2,name:'暖光台灯',text:'终于不用眯着眼看笔记了。灯亮的那一刻，这张桌子像是有了温度。',icon:'💡'},{at:0.4,name:'合作长桌',text:'修好的桌面不会再晃。原本各坐一角的人，可以把笔记摊在一起。',icon:'🪑'},{at:0.65,name:'共享书架',text:'有书、有便签，也有一句“看完放回就好”。这里开始留下每个人的痕迹。',icon:'📚'},{at:1,name:'窗边花园',text:'绿叶舒展开了，旧自习室也终于有了自己的样子。下次经过，或许会愿意多待一会儿。',icon:'🌿'}];
+function challenge(){return game&&game.condition==='adventure';}
+function roundEvent(){return ROOM_RULES.eventFor(game.seed,game.round,game.condition);}
+function repairTotal(){return game.rows.reduce(function(s,r){return s+(r.repairGain==null?r.total:r.repairGain);},0);}
+function roomGoal(){return game.persons.length*MAX_ROUNDS*(challenge()?7:6);}
+function roomRatio(){return repairTotal()/roomGoal();}
+function tokensLeft(pid){var used=game.rows.reduce(function(s,r){var a=r.actions.find(function(x){return x.id===pid;});return s+(a&&a.tool&&a.tool!=='none'?1:0);},0);return Math.max(0,2-used);}
+function currentHuman(){return game.persons.filter(function(p){return !p.bot;})[game.index];}
+function currentTool(){var p=currentHuman(),d=(game.drafts||{})[game.round+':'+p.id];return challenge()&&d&&d.tool?d.tool:'none';}
+function currentChain(){return previous()?(previous().comboStreak||0):0;}
+function roomSvg(surface){
+ var ratio=roomRatio(),warm=ratio>=0.2,desk=ratio>=0.4,books=ratio>=0.65,plants=ratio>=1,event=roundEvent(),storm=event.id==='storm';
+ var wall=warm?'#d6d0b9':'#687e80',floor=desk?'#ac8d67':'#6c7773';
+ var rain=storm?'<g stroke="#a6d6e7" stroke-width="2" opacity=".65"><path d="M511 66l-9 18m35-18l-9 18m36-18l-9 18m-51 3l-9 18m35-18l-9 18m36-18l-9 18"/></g>':'';
+ var shelves=books?'<g fill="#ad7750"><rect x="360" y="100" width="69" height="76" rx="3"/><path d="M361 125h67m-67 24h67" stroke="#533f36" stroke-width="4"/></g><g stroke-width="7"><path d="M373 109v12m10-14v14m9-13v13m10-14v14m12-12v12" stroke="#668b86"/><path d="M372 133v12m10-14v14m9-13v13m12-14v14m12-12v12" stroke="#d6aa66"/><path d="M373 156v15m11-17v17m11-14v14m12-15v15" stroke="#cbd3ad"/></g>':'<path d="M361 177v-70h66v70m-65-29h65" fill="none" stroke="#344e50" stroke-width="5" opacity=".5"/>';
+ var leaves=plants?'<g><path d="M510 251l8-57m0 23q-29-4-24-24 24 1 25 20m-1 3q27-13 25-30-26 3-26 26m2-6q-20-10-16-24 22 3 18 20" fill="#53835e" stroke="#38694e" stroke-width="2"/><path d="M496 240h34l-7 27h-21z" fill="#d6a46d"/></g>':'<path d="M501 245h27l-6 23h-15z" fill="#536866"/>';
+ var extras=(desk?'<path d="M263 276l53-15 63 20-53 17z" fill="#658b80" opacity=".5"/><path d="M330 270v25m28-31v24m-36-28l29-8 27 9-28 9z" fill="#d6b780" stroke="#415b54" stroke-width="4"/>':'')+(books?'<path d="M157 126l33-9v35l-33 9z" fill="#d8b36d"/><path d="M163 133l20-5m-20 12l15-4m-15 11l19-5" stroke="#9a6f3e" stroke-width="2"/>':'')+(plants?'<path d="M127 106q95-45 191-47" fill="none" stroke="#83936b" stroke-width="2"/><g fill="#f3d88e"><circle cx="148" cy="98" r="3"/><circle cx="182" cy="85" r="3"/><circle cx="216" cy="75" r="3"/><circle cx="250" cy="67" r="3"/><circle cx="285" cy="62" r="3"/></g>':'');
+ var lamp=warm?'<ellipse cx="267" cy="236" rx="96" ry="29" fill="#ffe7a3" opacity=".25"/><path d="M265 187v31m-11 5h26" stroke="#314c4b" stroke-width="5"/><path d="M249 187l10-20h14l10 20z" fill="#efd18a"/><ellipse cx="266" cy="190" rx="17" ry="4" fill="#ffedac"/><circle cx="266" cy="187" r="39" fill="#fbe2a0" opacity=".09"/>':'<path d="M265 190v30m-11 4h26m-31-34l10-20h14l10 20z" fill="#526c6b" stroke="#405957" stroke-width="3"/>';
+ var dust=warm?'':'<g stroke="#b7c2b4" opacity=".3"><path d="M181 84l13 8m-7-10l-6 13m257 119l7 7m-5-10l-4 14M149 207l14 3"/></g>';
+ var svg='<svg viewBox="0 0 660 365" role="group" aria-label="随团队投入修缮的自习室"><title>自习室修缮场景</title><defs><linearGradient id="nightSky" x2="0" y2="1"><stop stop-color="#162d46"/><stop offset="1" stop-color="#517177"/></linearGradient><radialGradient id="roomGlow"><stop stop-color="#eccb89" stop-opacity=".23"/><stop offset="1" stop-color="#eccb89" stop-opacity="0"/></radialGradient></defs><rect width="660" height="365" rx="18" fill="#142e34"/><ellipse cx="345" cy="283" rx="258" ry="70" fill="#0a2027" opacity=".5"/><path d="M110 106L329 43l223 67v144l-221 69-221-75z" fill="'+wall+'"/><path d="M329 43v145l223 66V110z" fill="'+(warm?'#b3bca9':'#527073')+'"/><path d="M110 248l219-60 223 66-221 69z" fill="'+floor+'"/><path d="M110 248l221 75v9l221-69v-9l-221 69z" fill="#40534c"/><path d="M329 188v-145" stroke="#233f42" opacity=".3"/><g stroke="#e1cca0" opacity=".15"><path d="M155 235l220 75m-178-88l220 74m-178-86l220 72m-175-85l215 72"/></g><path d="M458 85l83 25v87l-83-25z" fill="url(#nightSky)" stroke="#2f5154" stroke-width="7"/><path d="M499 98v86m-39-59l80 24" stroke="#8a9d91" stroke-width="3"/><circle cx="523" cy="127" r="7" fill="#f4d69c" opacity=".8"/>'+rain+shelves+'<g><path d="M206 223v51m169-51v51" stroke="#3d4b45" stroke-width="9"/><path d="M190 212l95-28 111 34-98 30z" fill="'+(desk?'#dec18d':'#7d8c7f')+'" stroke="'+(desk?'#a7885a':'#556f66')+'" stroke-width="3"/><path d="M190 212v10l108 36v-10z" fill="'+(desk?'#b39161':'#596f65')+'"/><path d="M298 248l98-30v9l-98 31z" fill="'+(desk?'#bda071':'#677e6e')+'"/></g>'+lamp+'<path d="M302 213l21-6 24 7-21 7z" fill="#e8e3cb"/><path d="M309 212l17-3m-13 7l17-3" stroke="#97a59c"/><path d="M201 264v22m27-14v22m-40-36l26-8 29 11-26 8z" fill="'+(desk?'#d6b780':'#556a62')+'" stroke="#415b54" stroke-width="4"/>'+extras+leaves+dust+(warm?'<ellipse cx="287" cy="190" rx="190" ry="130" fill="url(#roomGlow)"/>':'')+'<g fill="#d9e1d5" font-size="11" font-family="system-ui"><text x="25" y="31">'+(warm?'有人把灯留着':'从一间旧屋子开始')+'</text><text x="25" y="343">'+(plants?'ROOM RESTORED · 明天还来吗？':'每一轮的选择，都会留在房间里')+'</text><text x="630" y="343" text-anchor="end">'+Math.min(100,Math.round(ratio*100))+'%</text></g></svg>';
+ return svg.replace(/nightSky/g,'nightSky'+surface).replace(/roomGlow/g,'roomGlow'+surface);
+}
+function theatreHtml(isResults){
+ var ratio=roomRatio(),ev=roundEvent(),r=previous();
+ var html='<div class="theatre '+(isResults&&r&&r.newUnlocks&&r.newUnlocks.length?'just-unlocked':'')+'"><div class="theatre-top"><span>LIVE ROOM · '+(challenge()?'剧情挑战':'标准记录')+'</span><b>'+ev.name+'</b></div>'+roomSvg(isResults?'results':'play')+'<div class="facility-strip">';
+ FACILITIES.forEach(function(f,i){html+='<button type="button" data-facility="'+i+'" class="facility '+(ratio>=f.at?'built':'')+'" aria-label="'+f.name+(ratio>=f.at?'，已解锁':'，需要修缮至'+Math.round(f.at*100)+'%')+'"><span>'+f.icon+'</span><small>'+f.name+'</small><b>'+(ratio>=f.at?'已解锁':Math.round(f.at*100)+'%')+'</b></button>';});
+ return html+'</div><p class="room-detail small" role="status">点一下设施，看看这里会变成什么样。</p></div>';
+}
+function bindFacilities(dest){el(dest).querySelectorAll('[data-facility]').forEach(function(b){b.onclick=function(){var f=FACILITIES[Number(b.dataset.facility)];el(dest).querySelector('.room-detail').textContent=roomRatio()>=f.at?f.text:'还差 '+fmt(Math.max(0,roomGoal()*f.at-repairTotal()))+' 点修缮进度，可以解锁'+f.name+'。';};});}
+function renderChallenge(){
+ el('theatrePlay').innerHTML=theatreHtml(false);bindFacilities('theatrePlay');
+ var ev=roundEvent();el('eventBanner').className='event-banner '+ev.id;
+ el('eventBanner').innerHTML='<span class="event-icon">'+(ev.id==='storm'?'🌧️':ev.id==='open'?'🎪':'✦')+'</span><div><b>'+ev.name+'</b><p>'+ev.description+'</p></div>';
+ var p=currentHuman(),tokens=tokensLeft(p.id),selected=currentTool();
+ if(!challenge()){el('actionPanel').innerHTML='';return;}
+ var html='<div class="row wrap"><h3>这轮，带上什么？</h3><span class="pill">'+tokens+' / 2 行动券</span></div><p class="small muted">每人整局只有 2 张券。使用道具另扣 1 分，收益由团队共享；留着不用也可以。</p><div class="action-grid">';
+ Object.keys(ROOM_RULES.tools).forEach(function(key){var tool=ROOM_RULES.tools[key];html+='<button type="button" class="action-card '+(selected===key?'selected':'')+'" data-tool="'+key+'" aria-pressed="'+(selected===key)+'" '+(tokens<=0&&key!=='none'?'disabled':'')+'><span>'+tool.icon+'</span><b>'+tool.name+'</b><small>'+tool.desc+'</small></button>';});
+ html+='</div><div class="chain-hint">'+(currentChain()?'⚡ 合作火花已积蓄：本轮平均投入达到 6 点，修缮进度 ×2。':'✦ 连续两轮平均投入达到 6 点，即可触发修缮 ×2。')+' <span>不改变得分</span></div>';
+ el('actionPanel').innerHTML=html;
+ el('actionPanel').querySelectorAll('[data-tool]').forEach(function(b){b.onclick=function(){selectTool(b.dataset.tool);};});
+}
+function selectTool(tool){if(!challenge()||game.screen!=='play'||!ROOM_RULES.tools[tool])return;var p=currentHuman();if(tool!=='none'&&tokensLeft(p.id)<=0)return;saveDraft();game.drafts[game.round+':'+p.id].tool=tool;save();renderChallenge();previewPayoff();}
+function renderChallengeResult(r){
+ el('theatreResults').innerHTML=theatreHtml(true);bindFacilities('theatreResults');
+ var html='<div class="reward-row"><div><small>本轮点亮</small><b>+'+fmt(r.repairGain==null?r.total:r.repairGain)+' <span>修缮</span></b></div>';
+ if(r.combo===2)html+='<div class="combo-reward">⚡ 合作连锁 ×2</div>';
+ if(r.event&&r.event.id==='storm'&&r.toolCounts&&r.toolCounts.shield)html+='<div class="save-reward">🛡️ 帆布救场成功</div>';
+ html+='</div>';
+ if(r.newUnlocks&&r.newUnlocks.length)html+='<div class="unlock-banner">✦ 新设施解锁 · '+r.newUnlocks.map(function(i){return FACILITIES[i].icon+' '+FACILITIES[i].name;}).join(' / ')+'</div>';
+ html+='<p class="small muted">本轮公共池回报 '+fmt(r.effectiveMultiplier||1.6)+' 倍'+(r.toolCounts?' · 工具箱 '+r.toolCounts.repair+' / 扩音器 '+r.toolCounts.amp+' / 帆布 '+r.toolCounts.shield:'')+'。道具不返还成本；修缮进度不兑成个人积分。</p>';
+ el('actionResults').innerHTML=html;
+}
+function projectGuide(){
+ var humanCount=game.persons.filter(function(p){return !p.bot;}).length;
+ var html='<div class="project-panel"><div class="overline">YOUR SMALL RESEARCH PROJECT</div><h3>把这一晚变成一份小项目</h3><p>本局 '+humanCount+' 位真人 · '+(game.persons.length-humanCount)+' 位模拟角色 · '+(game.condition==='adventure'?'剧情挑战':'标准记录')+' · '+(game.advanced?'有惩罚':'无惩罚')+'</p><ol><li>固定玩法与人数，邀请更多同学完成独立场次。用会话 ID 区分每一局。</li><li>先画每轮平均投入、预测误差、个人与团队得分；挑战局再标注事件、道具和连锁。</li><li>比较公开前后变化，并讨论重复互动、事件与角色组成等其他解释。</li></ol><p class="small">8 轮决策不是 8 个独立样本；同局玩家会互相影响。模拟记录可以用于模型练习，真人结论只能来自真人数据。没有随机分组的前后比较只支持描述性结论。</p><details><summary>字段、规则与采集说明</summary><p class="small">CSV 为“一个玩家 × 一轮”一行，包含实际倍数、行动成本、事件、修缮增量、阶段、预测误差、对话目标与承诺、决策间隔毫秒（含中途离开）、真人/模拟标签与版本号。“扣行动后得分”已扣道具成本，最终得分再扣惩罚。JSON 保留完整会话、规则与对话；项目说明可另行下载。</p></details><button class="btn ghost full" id="exportProtocol">下载项目说明与字段字典</button></div>';
+ el('projectGuide').innerHTML=html;el('exportProtocol').onclick=exportProtocol;
+}
+function protocolText(){return '# 同一间自习室：小型项目说明\n\n版本：5.0\n本局规则：'+game.condition+'\n会话：'+game.session+'\n模式：'+game.mode+'\n人数：'+game.persons.length+'\n高级规则：'+game.advanced+'\n\n## 建议问题\n公开个人记录之后，团队投入和对他人投入的预测怎样变化？\n挑战局可另描述：事件发生时，谁愿意支付道具成本，以及团队怎样应对？\n\n## 核心规则\n每人每轮10点，共8轮；第1–4轮仅公开团队总额，第5轮起可见上轮个人投入，本轮结算公开个人投入和得分。标准记录回报固定1.6倍，无行动卡和突发事件；单人沟通仅改变台词，不改变模拟投入。\n剧情挑战：正常1.6倍；第3和第6轮分别出现暴雨/开放夜，种子奇偶决定先后。暴雨1.2倍、修缮70%；有帆布则恢复至1.5倍、修缮100%；开放夜1.9倍；任一扩音器再加0.2倍，不叠加。每人2张行动券，使用一张另外扣1分。工具箱额外修缮3点。连续两轮平均贡献至少6点，第二轮修缮量翻倍，然后连锁计数清零。设施仅为视觉与叙事奖励，不增加积分。\n得分=10-贡献+实际倍数×总贡献/人数-行动成本-惩罚支出-被罚损失。进阶规则可选：惩罚者损失1分，被罚者损失3分。\n\n## 字段字典\nCSV每行是一位玩家一轮：会话ID、参与者代号、昵称、真人或模拟、模拟画像、人数、贡献、预测与实际他人均值、得分、随机种子、阶段、决策前可见信息、公开目标、实际倍数、行动卡及成本、剩余券、事件、修缮量、连锁、设施解锁、决策间隔毫秒（含中途离开）、沟通与承诺、版本和规则条件。JSON保留原始对象和导出时间。决策间隔包含阅读、停留和中途离开，不代表纯思考时长；模拟者没有决策间隔。匿名阶段不提供个人即时得分，完整导出在终局开放。\n\n## 组织与分析\n不收真实姓名，只用匿名代号；提前说明用途，征得参与者同意。规则、人数、教学辅助和高级设置应保持一致。数据保存在当前浏览器，完成场次自动归档，可从“本机项目记录”汇总导出；没有联网自动收集。仅有前后比较时用“变化/相关”，不用“证明导致”。8轮不是8个独立样本，同局玩家相关；可先按局汇总。模拟和真人必须区分，不混合计算真人样本量。\n\n## 三幅建议图\n1.按轮次的团队人均投入（标注公开节点）。\n2.预测均值与实际均值，以及绝对误差。\n3.个人累计得分与团队总得分；挑战局另标事件、道具与成本。\n\n## 小报告结构\n问题→规则与参与者→数据与三幅图→观察到的变化→局限与下一步。一局试玩不支持普遍结论。\n';}
+function exportProtocol(){download('自习室项目说明_'+game.session+'.md',protocolText(),'text/markdown;charset=utf-8');}
+
+/* ---------- 场景、公共对话与回顾 ---------- */
+function lineHtml(name,text,player){return '<div class="talk-line'+(player?' player':'')+'"><b>'+escapeHtml(name)+'</b><p>'+escapeHtml(text)+'</p></div>';}
+function progressHtml(){
+ var total=repairTotal(),goal=roomGoal(),percent=Math.min(100,Math.round(total/goal*100));
+ return '<div class="lamp"><span class="lamp-icon" aria-hidden="true">💡</span><div class="lamp-info"><b>修缮进度 · '+percent+'%</b><div class="lamp-track" role="progressbar" aria-label="修缮进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+percent+'"><div class="lamp-fill" style="width:'+percent+'%"></div></div><small>'+fmt(total)+' / '+goal+' 修缮点 · 不兑换个人得分</small></div></div>';
+}
+function renderScene(){var s=GAME_STORY.scenes[game.round-1];el('roomProgress').innerHTML=progressHtml();el('scenePanel').innerHTML='<div class="scene-meta">'+s[0]+' · 第 '+game.round+' 幕</div><h3>'+escapeHtml(s[1])+'</h3><p>'+escapeHtml(s[2])+'</p>';}
+function saveDraft(){
+ if(!game||game.screen!=='play')return;
+ var p=game.persons.filter(function(x){return !x.bot;})[game.index];
+ game.drafts=game.drafts||{};var old=game.drafts[game.round+':'+p.id]||{};game.drafts[game.round+':'+p.id]={contribution:Number(el('contribution').value),forecast:Number(el('forecast').value),tool:old.tool||'none',openedAt:old.openedAt||Date.now()};save();
+}
+function previewPayoff(){if(!game)return;var c=Number(el('contribution').value),f=Number(el('forecast').value),n=game.persons.length,ev=roundEvent(),tool=currentTool(),m=ev.multiplier+(tool==='amp'?0.2:0)+(tool==='shield'&&ev.id==='storm'?0.3:0),cost=tool==='none'?0:1;el('payoffPreview').textContent='按你预测别人平均投 '+f+' 点估算：你约得 '+fmt(L.basePayoff(c,c+f*(n-1),n,m,ENDOWMENT)-cost)+' 分。'+(challenge()?'暂按只有你使用所选道具计算，其他人的道具可能提高实际回报。':'')+'未计惩罚。';}
+function renderTalk(){
+ if(game.mode!=='solo'){el('talkPanel').innerHTML='<div class="insight">可以一起聊聊本幕的问题，再轮流私下选择。游戏不会替真人说话；本轮投入全部提交后才结算。</div>';return;}
+ var talk=(game.talks||{})[game.round],s=GAME_STORY.scenes[game.round-1];
+ var html='<div class="transcript"><h3>桌边聊两句 <span class="muted small">可选 · 每轮一次</span></h3>';
+ if(talk){
+  html+=lineHtml(game.persons[0].name,talk.text,true);
+  talk.replies.forEach(function(r){html+=lineHtml(r.name,r.text);});
+  html+='<p class="notice">这句话已经说出，刷新后仍会保留。本轮可直接做投入决定。</p>';
+ }else{
+  html+='<p class="small muted">可向某位角色提出本轮约定，也可问清顾虑或留一点空间。挑战模式中沟通最多改变模拟者 1 点投入；标准记录只改变对话。</p><div class="talk-options">';
+  s[3].forEach(function(t,i){html+='<button type="button" class="talk-choice" data-intent="'+i+'">'+escapeHtml(t)+'</button>';});
+  html+='</div><label class="small" for="talkTarget">这句话主要对谁说？</label><select class="number" id="talkTarget"><option value="all">所有人</option>'+game.persons.filter(function(p){return p.bot;}).map(function(p){return '<option value="'+p.id+'">'+escapeHtml(p.name)+'</option>';}).join('')+'</select><label class="small" for="pledge">随这句话公开表达意向（不强制）</label><select class="number" id="pledge"><option value="">不报具体点数</option><option value="3">我这轮争取投 3 点</option><option value="6">我这轮争取投 6 点</option><option value="9">我这轮争取投 9 点</option></select><p class="notice">匿名阶段不会核对个人投入；公开阶段会回应你的表态与实际选择。</p>';
+ }
+ html+='</div>';el('talkPanel').innerHTML=html;
+ if(!talk)el('talkPanel').querySelectorAll('[data-intent]').forEach(function(b){b.onclick=function(){chooseTalk(Number(b.dataset.intent));};});
+}
+function chooseTalk(intent){
+ if(!game||game.mode!=='solo'||game.screen!=='play'||game.talks[game.round])return;
+ var value=el('pledge').value,pledge=value===''?null:Number(value),scene=GAME_STORY.scenes[game.round-1];
+ var target=el('talkTarget').value||'all';var targetPerson=game.persons.find(function(p){return p.id===target;});
+ var talk={intent:intent,target:target,pledge:pledge,text:(targetPerson?targetPerson.name+'，':'')+scene[3][intent]+(pledge==null?'':' 我这轮争取投 '+pledge+' 点。'),replies:[],shifts:{},pact:null};
+ var prev=previous(),pm=prev?prev.total/prev.actions.length:5,priorTalk=prev&&prev.talk;
+ game.persons.filter(function(p){return p.bot;}).forEach(function(p,i){
+  var shift=GAME_STORY.influence(p.profile,intent);
+  if(intent===0&&pm<3&&p.profile==='conditional')shift=-1;
+  if(intent===1&&pm<3&&p.profile==='fairness')shift=-1;
+  if(!challenge()||(target!=='all'&&target!==p.id))shift=0;
+  talk.shifts[p.id]=shift;
+  var text=GAME_STORY.reply(p.profile,intent,game.seed,game.round,i+30);
+  if(p.id===target&&intent===0&&pledge!=null){var accepted=p.profile==='generous'||(p.profile==='conditional'&&pm>=4)||(p.profile==='fairness'&&pm>=3);talk.pact={id:p.id,name:p.name,amount:pledge,accepted:accepted};text=accepted?'好，我也争取投 '+pledge+' 点。先说清，这个约定靠自觉；等能公开核对时，我们再看有没有做到。':'我听到了，但这轮我先不答应具体点数。你可以看我后面怎么做。';}
+  if(shift<0)text+=' 不过这会儿再这么说，我反而有点想往回收。';
+  if(i===0&&priorTalk&&priorTalk.intent===intent)text+=' 你上轮也是这个意思。这次我想看看接下来。';
+  if(i===0&&game.round>=5&&priorTalk&&priorTalk.pledge!=null){var lastHuman=prev.actions.find(function(a){return !a.bot;});text+=(lastHuman.contribution>=priorTalk.pledge?' 上轮你说争取投 '+priorTalk.pledge+' 点，也做到了，这个我记着。':' 上轮你说争取投 '+priorTalk.pledge+' 点，公开记录是 '+lastHuman.contribution+'。所以这轮我还是会再看看。');}
+  if(i===1&&talk.replies.length)text=talk.replies[0].name+'，我听见你说的了。'+text;
+  if(i===2&&prev&&prev.punishEvents.length)text+=' 刚才扣分的事，我还没完全缓过来。';
+  talk.replies.push({id:p.id,name:p.name,text:text});
+ });
+ game.talks[game.round]=talk;saveDraft();save();renderTalk();
+}
+function renderConversation(r){
+ var html='<div class="transcript"><h3>这一轮，桌边的声音</h3>',talk=r.talk;
+ if(talk){html+=lineHtml(game.persons[0].name,talk.text,true);}
+ var bots=r.actions.filter(function(a){return a.bot;});
+ if(!bots.length)html+='<p class="muted small">把刚才的选择留在记录里，也给彼此一点说话的空间。</p>';
+ bots.forEach(function(a,i){var react=r.reactions[a.id];if(!react)return;var text=react.text;if(i===1){var first=r.reactions[bots[0].id];if(first)text=bots[0].name+'，我听见了。'+text;}html+=lineHtml(a.name+' '+react.face,text);});
+ if(r.stage==='B'&&r.talk&&r.talk.pact&&r.talk.pact.accepted)html+='<div class="insight">'+(r.pactKept?'🤝 本轮约定兑现：双方都达到了 '+r.talk.pact.amount+' 点。':'本轮约定没有全部兑现。你可以查看公开记录，再决定下一轮怎样回应。')+'</div>';
+ html+='</div>';el('roundConversation').innerHTML=html;
+}
+function renderInsight(r){
+ var text=game.round<=4?'这一阶段只能看到总额。低投入可能有多种原因，暂时无法知道是谁在保留。':'现在有个人记录了，可以观察谁在调整；但单轮数字仍不足以说明一个人的动机。';
+ if(r.punishEvents.length)text='本轮惩罚共消耗团队 '+(r.punishEvents.length*(PUNISH_COST+PUNISH_EFFECT))+' 分。它是否让下一轮改善，还需要继续观察。';
+ else if(game.round===8)text='最后一轮没有下一轮可以回应。你可以比较自己的最后选择与前面的选择有什么不同。';
+ el('roundInsight').textContent=text;
+}
+function renderEnding(){
+ var rows=game.rows,n=game.persons.length,total=rows.reduce(function(s,r){return s+r.total;},0),goal=n*MAX_ROUNDS*6;
+ var first=mean(rows.slice(0,4).map(function(r){return r.total/n;})),last=mean(rows.slice(4).map(function(r){return r.total/n;}));
+ var punish=rows.reduce(function(s,r){return s+r.punishEvents.length;},0),title,text;
+ if(repairTotal()>=roomGoal()){title='灯亮了，也有人愿意再来';text='修缮便签上的目标完成了。窗外的雨停了，有人把椅子推回桌下，又问了一句：“明天还来吗？”今晚并非没有犹豫，只是你们把一些犹豫走成了行动。';}
+ else if(last-first>=1){title='还没修好，但开始接住彼此';text='修缮进度还没走完，后半夜的投入却比前半夜多了。有人把没用完的便签夹进书里：“这张先别扔，下次接着写。”';}
+ else if(punish>=3){title='规则留下了，余温还要慢慢找';text='今晚几次有人付出代价提醒别人。记录变得清楚，桌边却也留下了一些停顿。闭馆前，大家收好东西；下次如何开口，还是一个问题。';}
+ else{title='一张便签，暂时留在这里';text='这间自习室还没有变成最初想象的样子。大家把各自的东西收进包里，便签没有被扔掉。今晚留下的，不只有分数，也有下一次可以换一种做法的理由。';}
+ el('storyEnding').innerHTML='<div class="scene"><div class="scene-meta">21:10 · 闭馆以后</div><h3 class="ending-title">'+title+'</h3><p>'+text+'</p></div>'+progressHtml();
+ var human=game.persons.find(function(p){return !p.bot;}),own=rows.map(function(r){return r.actions.find(function(a){return a.id===human.id;});});
+ var error=mean(own.map(function(a){return Math.abs(a.forecast-a.peerMean);}));
+ el('personalReview').innerHTML='<div class="review-grid"><div class="slab"><b>'+escapeHtml(human.name)+'的观察</b><p>八轮平均投入 '+fmt(mean(own.map(function(a){return a.contribution;})))+' 点；预测他人平均投入的平均绝对误差为 '+fmt(error)+' 点。</p></div><div class="slab"><b>今晚的代价</b><p>惩罚共 '+punish+' 次，团队损失 '+(punish*4)+' 分。修缮完成 '+Math.min(100,Math.round(roomRatio()*100))+'%。</p></div></div><p class="notice">这是本局描述，不是对人格的评价。前后阶段同时经历了重复互动与信息变化，不能据此推断公开记录或沟通的因果效果。'+(game.storyVersion===3?'这局从旧版存档接续，前面未发生的对话不会补写。':'')+'</p>';
+ el('storyArchive').innerHTML=rows.map(function(r){var s=GAME_STORY.scenes[r.round-1];var out='<div class="moment"><b>第 '+r.round+' 幕 · '+s[1]+'</b><p class="small muted">团队投入 '+r.total+' 点 · '+(r.talk?'有桌边对话':'直接做出选择')+'</p>';if(r.talk){out+=lineHtml(human.name,r.talk.text,true);r.talk.replies.forEach(function(x){out+=lineHtml(x.name,x.text);});}r.actions.filter(function(a){return a.bot;}).forEach(function(a){if(r.reactions[a.id])out+=lineHtml(a.name,r.reactions[a.id].text);});return out+'</div>';}).join('');
+}
+
+
+/* 完成场次归档：同一浏览器可汇总多局，版本与模拟标签保留。 */
+var archiveKey='studyroom_project_archive_v5';
+function readArchive(){try{var a=JSON.parse(localStorage.getItem(archiveKey)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}}
+function archiveGame(){if(!game||game.screen!=='finished')return;var all=readArchive();if(all.some(function(g){return g.session===game.session;}))return;all.push(JSON.parse(JSON.stringify(game)));try{localStorage.setItem(archiveKey,JSON.stringify(all));}catch(e){el('status').textContent='本机历史归档空间不足，这局还在当前存档中。请先导出本局 CSV / JSON。';}}
+function renderArchiveSummary(){var all=readArchive(),people=all.reduce(function(s,g){return s+g.persons.filter(function(p){return !p.bot;}).length;},0);el('archiveSummary').textContent='本机已归档 '+all.length+' 局 · 真人参与 '+people+' 人次（不等于独立人数）';el('exportArchive').disabled=!all.length;}
+function exportArchive(){var all=readArchive();if(!all.length)return;var out=all.map(function(g,i){var csv=dataRows(g);return i?csv.slice(csv.indexOf('\r\n')+2):csv;}).join('\r\n');download('自习室项目汇总_'+new Date().toISOString().slice(0,10)+'.csv',out,'text/csv;charset=utf-8');}
+
+/* ---------- 设置界面 ---------- */
+function changeMode(m){
+  mode=m;
+  el('soloMode').classList.toggle('selected',m==='solo');
+  el('localMode').classList.toggle('selected',m==='local');
+  show('teamCountArea',m==='local');
+  makeNames();
+}
+function makeNames(){
+  var n=mode==='solo'?1:Number(el('teamCount').value),a='';
+  for(var i=0;i<n;i++){
+    a+='<label><span class="small muted">'+(mode==='solo'?'你的昵称':'玩家 '+(i+1))+'</span>'+
+       '<input class="name" id="pname'+i+'" maxlength="18" value="'+(mode==='solo'?'我':'玩家'+(i+1))+'" autocomplete="off"></label>';
+  }
+  el('names').innerHTML=a;
+}
+function safeName(x,fallback){return String(x||'').trim().slice(0,18)||fallback;}
+
+/* ---------- 角色外观 ---------- */
+var BOT_NAMES=['小岚','小南','小舟'];
+var AVATARS={
+  B1:{colors:['#fde8e4','#f4c7bd'],me:'🙂'},
+  B2:{colors:['#e4f0fd','#c2d9f7'],me:'🙂'},
+  B3:{colors:['#e6f4ec','#c2e6cf'],me:'🙂'},
+  H:{colors:['#eef2ff','#c9d6fa'],me:'🧑‍🎓'}
+};
+var FACES={happy:'😄',calm:'🙂',meh:'😐',sad:'😞',angry:'😠',sly:'😏',wow:'😮',cool:'😎'};
+function avatarHtml(id,face,pop){
+  var a=AVATARS[id]||AVATARS.H;
+  return '<div class="face" style="background:linear-gradient(135deg,'+a.colors[0]+','+a.colors[1]+')">'+(face||a.me)+'</div>';
+}
+
+/* ---------- 开局 ---------- */
+function newGame(){
+  var seed=(Date.now()^Math.floor(Math.random()*0xffffffff))>>>0;
+  var advanced=el('advancedMode').checked;
+  var norm=advanced?Number(el('normSelect').value):null;
+  var persons,agents={};
+  if(mode==='solo'){
+    persons=[{id:'P1',name:safeName(el('pname0').value,'我'),bot:false,profile:null}];
+    var keys=L.drawProfiles(seed,3);
+    BOT_NAMES.forEach(function(name,i){
+      var id='B'+(i+1);
+      persons.push({id:id,name:name,bot:true,profile:keys[i]});
+      agents[id]=L.newAgent(keys[i]);
+    });
+  }else{
+    var n=Number(el('teamCount').value);
+    persons=[];
+    for(var i=0;i<n;i++)persons.push({id:'P'+(i+1),name:safeName(el('pname'+i).value,'玩家'+(i+1)),bot:false,profile:null});
+  }
+  game={
+    session:'SG-'+Date.now().toString(36)+'-'+seed.toString(36),seed:seed,mode:mode,advanced:advanced,norm:norm,condition:el('condition').value,projectCode:el('projectCode').value.trim().slice(0,24),ruleVersion:'5.0',
+    params:{endowment:ENDOWMENT,multiplier:MULTIPLIER,rounds:MAX_ROUNDS,punishCost:PUNISH_COST,punishEffect:PUNISH_EFFECT},
+    storyVersion:5,talks:{},drafts:{},persons:persons,agents:agents,round:1,index:0,temporary:[],rows:[],
+    punishQueue:[],punishChoices:{},pendingPunishRow:null,
+    screen:'play',created:new Date().toISOString()
+  };
+  save();show('recordPanel');updateRecords();moveToPlayer(true);
+}
+
+/* ---------- 流程 ---------- */
+function stage(r){return r<=4?'A':'B';}
+function previous(){return game.rows[game.rows.length-1]||null;}
+
+function moveToPlayer(first){
+  if(!game)return;
+  var humans=game.persons.filter(function(p){return !p.bot;});
+  var p=humans[game.index];
+  if(!p){settle();return;}
+  if(game.mode==='local'&&!first){
+    el('handoffRound').textContent='第 '+game.round+' / '+MAX_ROUNDS+' 轮';
+    el('handoffPosition').textContent=(game.index+1)+' / '+humans.length;
+    el('handoffName').textContent=p.name;
+    game.screen='handoff';view('handoff');
+  }else showPlayer();
+}
+
+function castHtml(target,opts){
+  /* 角色卡片：opts={lastRow, reactions, meId} */
+  opts=opts||{};
+  var lastRow=opts.lastRow||null;
+  var reactions=opts.reactions||{};
+  var html=game.persons.map(function(p){
+    var face=null,last='';
+    if(reactions[p.id])face=reactions[p.id].face;
+    if(lastRow){
+      var a=lastRow.actions.find(function(x){return x.id===p.id;});
+      if(a&&lastRow.stage==='B')last='<div class="alast">上轮 '+a.contribution+' 点</div>';
+    }
+    var bubble=reactions[p.id]?'<div class="bubble">'+escapeHtml(reactions[p.id].text)+'</div>':'';
+    var tag=p.bot?'<div class="atag">电脑玩家</div>':'<div class="atag">真人</div>';
+    return '<div class="actor'+(p.id===opts.meId?' me':'')+(reactions[p.id]?' pop':'')+'">'+
+      avatarHtml(p.bot?p.id:'H',face,!!reactions[p.id])+
+      '<div class="aname">'+escapeHtml(p.name)+'</div>'+tag+last+bubble+'</div>';
+  }).join('');
+  el(target).innerHTML=html;
+}
+
+function showPlayer(){
+  var humans=game.persons.filter(function(p){return !p.bot;});
+  var p=humans[game.index];
+  if(!p)return;
+  game.screen='play';
+  el('roundTitle').textContent='第 '+game.round+' / '+MAX_ROUNDS+' 轮';
+  el('stage').textContent=stage(game.round)==='A'?'第 1 阶段':'第 2 阶段';
+  el('stage').className='pill'+(stage(game.round)==='B'?' orange':'');
+  el('playerLabel').textContent=p.name+'，轮到你了';
+  var draft=(game.drafts||{})[game.round+':'+p.id]||{contribution:5,forecast:5,tool:'none',openedAt:Date.now()};game.drafts[game.round+':'+p.id]=draft;
+  el('contribution').value=draft.contribution;el('forecast').value=draft.forecast;
+  el('contributionValue').textContent=draft.contribution;el('forecastValue').textContent=draft.forecast;
+  el('dots').innerHTML=Array.from({length:MAX_ROUNDS},function(_,i){
+    return '<div class="dot '+(i+1<game.round?'done':i+1===game.round?'now':'')+'"></div>';
+  }).join('');
+  castHtml('castPlay',{lastRow:previous(),meId:p.id});renderScene();renderTalk();renderChallenge();previewPayoff();
+  el('normChipArea').innerHTML=(game.advanced&&game.norm!=null)?'<span class="normchip">🤝 本局约定：每人建议投入 '+game.norm+' 点（不强制）</span>':'';
+  var prior=previous();
+  if(prior){
+    if(stage(game.round)==='B'){
+      var rows=prior.actions.map(function(a){return escapeHtml(a.name)+'：'+a.contribution+' 点';}).join('　·　');
+      el('historyHint').innerHTML='<b>上一轮公开记录</b><div class="small" style="margin-top:8px">'+rows+'</div>';
+    }else{
+      el('historyHint').innerHTML='<b>上一轮</b><div class="small" style="margin-top:8px">团队共投入 '+prior.total+' 点（个人投入暂不公开）</div>';
+    }
+    show('historyHint');
+  }else show('historyHint',false);
+  save();view('play');
+}
+
+function submit(){
+  if(!game||game.screen!=='play')return;
+  var humans=game.persons.filter(function(p){return !p.bot;});
+  var p=humans[game.index];
+  game.temporary.push({id:p.id,name:p.name,bot:false,profile:null,
+    contribution:Number(el('contribution').value),forecast:Number(el('forecast').value),tool:currentTool(),decisionMs:Math.max(0,Date.now()-((game.drafts[game.round+':'+p.id]||{}).openedAt||Date.now()))});
+  game.index++;save();
+  if(game.index<humans.length)moveToPlayer(false);else settle();
+}
+
+/* ---------- agent 反应：由真实事件触发，不是剧本 ---------- */
+function pickReaction(a,row,prev,rng){
+  var used=game.rows.filter(function(r){return r.round!==row.round;}).map(function(r){return r.reactions&&r.reactions[a.id]?r.reactions[a.id].template:'';});
+  var r=GAME_STORY.reaction(a,row,prev,game.seed,used);
+  var talk=(game.talks||{})[row.round];
+  if(row.stage==='B'&&talk&&talk.pledge!=null){
+    var human=row.actions.find(function(x){return !x.bot;});
+    if(human&&a.id==='B1')r.text+=(human.contribution>=talk.pledge?' 你说这轮争取投 '+talk.pledge+' 点，确实做到了。':' 你刚才说争取投 '+talk.pledge+' 点，最后投了 '+human.contribution+'。是临时改主意了吗？');
+  }
+  return r;
+}
+
+/* ---------- 结算 ---------- */
+function settle(){
+  if(!game)return;
+  var actions=game.temporary.slice();
+  var rng=L.mulberry32(L.roundSeed(game.seed,game.round,1));
+  if(game.mode==='solo'){
+    var prev=previous();
+    game.persons.filter(function(p){return p.bot;}).forEach(function(p){
+      var agent=game.agents[p.id];
+      var perceived=null, wasPunished=false;
+      if(prev){
+        var self=prev.actions.find(function(a){return a.id===p.id;});
+        perceived=(prev.total-(self?self.contribution:0))/(prev.actions.length-1);
+        wasPunished=(prev.punishEvents||[]).some(function(e){return e.to===p.id;});
+      }
+      var d=L.decide(agent,{perceived:perceived,norm:game.norm,punished:wasPunished},rng);
+      var talk=(game.talks||{})[game.round];
+      var shift=talk&&talk.shifts?talk.shifts[p.id]||0:0;
+      d.contribution=L.clamp(d.contribution+shift,0,10);agent.lastOwn=d.contribution;
+      actions.push({id:p.id,name:p.name,bot:true,profile:p.profile,
+        contribution:d.contribution,forecast:d.forecast,tool:challenge()?ROOM_RULES.botTool(p.profile,roundEvent(),tokensLeft(p.id),perceived,rng):'none',decisionMs:null});
+    });
+  }
+  var total=actions.reduce(function(s,a){return s+a.contribution;},0);
+  var n=actions.length;
+  var event=roundEvent(),resolved=ROOM_RULES.resolve(actions,event,currentChain(),challenge()),beforeRatio=roomRatio();
+  actions.forEach(function(a){
+    a.peerMean=mean(actions.filter(function(x){return x.id!==a.id;}).map(function(x){return x.contribution;}));
+    a.tool=a.tool||'none';a.toolCost=a.tool==='none'?0:1;a.grossPayoff=L.basePayoff(a.contribution,total,n,resolved.multiplier,ENDOWMENT);a.payoffBase=a.grossPayoff-a.toolCost;a.tokensLeft=2-(2-tokensLeft(a.id))-a.toolCost;
+    a.punishGiven=0;a.punishReceived=0;a.payoff=a.payoffBase;
+  });
+  var row={
+    round:game.round,stage:stage(game.round),publicPrevious:game.round>=5,
+    norm:game.norm,actions:actions,total:total,
+    teamBase:n*ENDOWMENT+(resolved.multiplier-1)*total-actions.reduce(function(s,a){return s+a.toolCost;},0),event:event,effectiveMultiplier:resolved.multiplier,repairGain:resolved.repairGain,combo:resolved.combo,comboStreak:resolved.streak,toolCounts:resolved.counts,newUnlocks:[],pactKept:null,
+    punishEvents:[],reactions:{},talk:(game.talks||{})[game.round]||null,punishDone:!(game.advanced&&stage(game.round)==='B')
+  };
+  /* 反应在结算时生成并存档（渲染是纯函数） */
+  var rngFace=L.mulberry32(L.roundSeed(game.seed,game.round,2));
+  actions.filter(function(a){return a.bot;}).forEach(function(a){
+    var r=pickReaction(a,row,previous(),rngFace);
+    if(r)row.reactions[a.id]=r;
+  });
+  if(row.talk&&row.talk.pact&&row.talk.pact.accepted){var pact=row.talk.pact,partner=actions.find(function(a){return a.id===pact.id;}),human=actions.find(function(a){return !a.bot;});row.pactKept=partner.contribution>=pact.amount&&human.contribution>=pact.amount;}
+  game.rows.push(row);row.newUnlocks=FACILITIES.map(function(f,i){return beforeRatio<f.at&&roomRatio()>=f.at?i:-1;}).filter(function(i){return i>=0;});
+  game.temporary=[];game.index=0;
+  game.screen='results';
+  save();renderResults(row);updateRecords();view('results');
+}
+
+function renderStandings(dest,acts,key){
+  var max=Math.max.apply(null,acts.map(function(a){return Math.abs(a[key]);}).concat([1]));
+  el(dest).innerHTML=acts.map(function(a){
+    return '<div class="standing"><span>'+escapeHtml(a.name)+(a.bot?' 🤖':'')+'</span>'+
+      '<div class="barbg"><div class="bar" data-w="'+(100*Math.abs(a[key])/max)+'" style="'+(a[key]<0?'background:#b95c4d':'')+'"></div></div>'+
+      '<b style="text-align:right">'+fmt(a[key])+'</b></div>';
+  }).join('');
+  requestAnimationFrame(function(){
+    Array.prototype.forEach.call(el(dest).querySelectorAll('.bar'),function(b){b.style.width=b.getAttribute('data-w')+'%';});
+  });
+}
+
+function renderResults(r){
+  el('resultsTitle').textContent='第 '+r.round+' 轮结算';
+  el('resultStage').textContent=r.stage==='A'?'阶段 A':'阶段 B';
+  el('resultStage').className='pill'+(r.stage==='B'?' orange':'');
+  el('poolTotal').textContent=r.total+' 点';
+  el('meanPayoff').textContent=fmt(mean(r.actions.map(function(a){return a.payoff;})));
+  el('groupScore').textContent=fmt(r.teamBase-(r.actions.reduce(function(s,a){return s+(a.punishGiven||0)+(a.punishReceived||0);},0)));
+  el('baseline').textContent=(ENDOWMENT*r.actions.length)+' 点';
+  if(r.stage==='B')renderStandings('standingBoard',r.actions,'payoff');
+  else el('standingBoard').innerHTML='<p class="small muted">这一阶段只公布团队结果。个人投入与个人得分暂不显示，避免从得分反推他人的选择。</p>';
+  castHtml('castResults',{});renderConversation(r);renderInsight(r);renderChallengeResult(r);
+  if(r.stage==='B'){
+    el('publicContributions').innerHTML='<b>这一轮每人的投入</b><div class="chips" style="margin-top:10px">'+
+      r.actions.map(function(a){return '<span class="chip" style="background:#253d59;color:#fff;border-color:#45617a">'+escapeHtml(a.name)+'：'+a.contribution+' 点</span>';}).join('')+'</div>';
+    show('publicContributions');
+  }else show('publicContributions',false);
+
+  /* 惩罚入口：进阶模式 + 阶段 B + 尚未惩罚 */
+  var canPunish=game.advanced&&r.stage==='B'&&!r.punishDone;
+  if(canPunish){
+    var box=el('punishBox');
+    if(game.mode==='solo'){
+      box.innerHTML='<b>要惩罚谁吗？</b><span class="small muted">（每惩罚一人：你 −'+PUNISH_COST+' 点，对方 −'+PUNISH_EFFECT+' 点，纯属可选）</span>'+
+        '<div id="punishInline"></div>'+
+        '<button class="btn danger full" id="punishApply" style="margin-top:10px">确认惩罚决定</button>';
+      renderPunishInline(r);
+      show('punishBox');
+      el('punishApply').onclick=function(){applySoloPunish(r);};
+    }else{
+      box.innerHTML='<b>接下来是惩罚环节</b><span class="small muted">（每位真人轮流决定是否惩罚，也可全部跳过）</span>'+
+        '<button class="btn danger full" id="punishStart" style="margin-top:10px">进入惩罚环节 →</button>';
+      show('punishBox');
+      el('punishStart').onclick=function(){startPunishFlow(r);};
+    }
+    el('next').classList.add('hide');
+  }else{
+    show('punishBox',false);
+    el('next').classList.remove('hide');
+  }
+  var punNote=r.punishEvents.length?'<div class="small" style="margin-top:10px">⚖️ 本轮惩罚：'+
+    r.punishEvents.map(function(e){return escapeHtml(e.fromName)+' → '+escapeHtml(e.toName);}).join('，')+'</div>':'';
+  if(r.punishEvents.length){
+    el('publicContributions').innerHTML+=punNote;
+    show('publicContributions');
+  }
+  el('next').textContent=r.round===MAX_ROUNDS?'查看总成绩 →':'进入下一轮 →';
+}
+
+/* ---------- 惩罚 ---------- */
+function renderPunishInline(r){
+  var me=r.actions.find(function(a){return !a.bot;});
+  el('punishInline').innerHTML=r.actions.filter(function(a){return a.id!==me.id;}).map(function(a){
+    return '<div class="ptarget"><span>'+escapeHtml(a.name)+'（本轮投 '+a.contribution+' 点）</span>'+
+      '<label class="small"><input type="checkbox" data-target="'+a.id+'"> 花 1 点扣 TA 3 点</label></div>';
+  }).join('');
+}
+function applySoloPunish(r){
+  var me=r.actions.find(function(a){return !a.bot;});
+  var events=[];
+  Array.prototype.forEach.call(el('punishInline').querySelectorAll('input:checked'),function(cb){
+    var to=r.actions.find(function(a){return a.id===cb.getAttribute('data-target');});
+    if(to)events.push({from:me.id,fromName:me.name,to:to.id,toName:to.name});
+  });
+  finalizePunishment(r,events);
+}
+function startPunishFlow(r){
+  game.punishQueue=game.persons.filter(function(p){return !p.bot;}).map(function(p){return p.id;});
+  game.punishChoices={};
+  game.pendingPunishRow=r.round;
+  game.screen='handoff';
+  var first=game.persons.find(function(p){return p.id===game.punishQueue[0];});
+  el('handoffRound').textContent='第 '+r.round+' 轮 · 惩罚环节';
+  el('handoffPosition').textContent='';
+  el('handoffName').textContent=first.name;
+  save();view('handoff');
+  el('enter').onclick=punishTurn;
+}
+function punishTurn(){
+  var pid=game.punishQueue[0];
+  var r=game.rows[game.rows.length-1];
+  var me=r.actions.find(function(a){return a.id===pid;});
+  game.screen='punish';save();
+  el('punishIntro').textContent=me.name+'，本轮每人投入已公开。你可以花 1 点扣掉某人 3 点，也可以什么都不做。';
+  el('punishTargets').innerHTML=r.actions.filter(function(a){return a.id!==pid;}).map(function(a){
+    return '<div class="ptarget"><span>'+escapeHtml(a.name)+'（本轮投 '+a.contribution+' 点）</span>'+
+      '<label class="small"><input type="checkbox" data-target="'+a.id+'"> 花 1 点扣 TA 3 点</label></div>';
+  }).join('');
+  view('punish');
+}
+el('punishDone').addEventListener('click',function(){
+  var pid=game.punishQueue.shift();
+  var r=game.rows[game.rows.length-1];
+  var me=r.actions.find(function(a){return a.id===pid;});
+  game.punishChoices[pid]=[];
+  Array.prototype.forEach.call(el('punishTargets').querySelectorAll('input:checked'),function(cb){
+    var to=r.actions.find(function(a){return a.id===cb.getAttribute('data-target');});
+    if(to)game.punishChoices[pid].push({from:me.id,fromName:me.name,to:to.id,toName:to.name});
+  });
+  if(game.punishQueue.length){
+    var nxt=game.persons.find(function(p){return p.id===game.punishQueue[0];});
+    el('handoffRound').textContent='第 '+r.round+' 轮 · 惩罚环节';
+    el('handoffPosition').textContent='';
+    el('handoffName').textContent=nxt.name;
+    game.screen='handoff';save();view('handoff');
+  }else{
+    var events=[];
+    Object.keys(game.punishChoices).forEach(function(k){events=events.concat(game.punishChoices[k]);});
+    finalizePunishment(r,events);
+  }
+});
+function finalizePunishment(r,humanEvents){
+  if(r.punishDone)return;
+  var events=humanEvents.slice();
+  var groupMean=r.total/r.actions.length;
+  var rng=L.mulberry32(L.roundSeed(game.seed,r.round,3));
+  r.actions.filter(function(a){return a.bot;}).forEach(function(a){
+    L.decidePunish(game.agents[a.id],a.id,r.actions,groupMean,rng).forEach(function(toId){
+      var to=r.actions.find(function(x){return x.id===toId;});
+      if(to)events.push({from:a.id,fromName:a.name,to:to.id,toName:to.name});
+    });
+  });
+  r.punishEvents=events;
+  L.applyPunishment(r.actions,events,PUNISH_COST,PUNISH_EFFECT);
+  r.punishDone=true;
+  /* 惩罚后的补充反应 */
+  var rngFace=L.mulberry32(L.roundSeed(game.seed,r.round,4));
+  r.actions.filter(function(a){return a.bot;}).forEach(function(a){
+    if(!events.some(function(e){return e.from===a.id||e.to===a.id;}))return;
+    var react=pickReaction(a,r,game.rows[game.rows.length-2]||null,rngFace);
+    if(react)r.reactions[a.id]=react;
+  });
+  game.screen='results';
+  game.punishQueue=[];game.punishChoices={};game.pendingPunishRow=null;
+  el('enter').onclick=showPlayer;
+  save();
+  renderResults(r);updateRecords();view('results');
+}
+
+/* ---------- 下一轮 / 终局 ---------- */
+function next(){
+  if(!game||game.screen!=='results')return;
+  var r=previous();
+  if(game.advanced&&r.stage==='B'&&!r.punishDone){return;}
+  if(game.round>=MAX_ROUNDS){finish();return;}
+  game.round++;game.index=0;game.screen='play';save();
+  moveToPlayer(game.mode==='solo');
+}
+
+var CHART_COLORS=['#4169e1','#c04a3a','#1d806e','#c58b39','#7a5af8'];
+function drawChart(){
+  var W=620,H=240,pad=34;
+  var people=game.persons;
+  var lines=people.map(function(p,i){
+    var pts=game.rows.map(function(r,ri){
+      var a=r.actions.find(function(x){return x.id===p.id;});
+      var x=pad+ri*(W-2*pad)/(MAX_ROUNDS-1);
+      var y=H-pad-(a.contribution/10)*(H-2*pad);
+      return x.toFixed(1)+','+y.toFixed(1);
+    }).join(' ');
+    return '<polyline points="'+pts+'" fill="none" stroke="'+CHART_COLORS[i%CHART_COLORS.length]+'" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>'+
+      game.rows.map(function(r,ri){
+        var a=r.actions.find(function(x){return x.id===p.id;});
+        var x=pad+ri*(W-2*pad)/(MAX_ROUNDS-1);
+        var y=H-pad-(a.contribution/10)*(H-2*pad);
+        return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.4" fill="'+CHART_COLORS[i%CHART_COLORS.length]+'"/>';
+      }).join('');
+  }).join('');
+  var grid='';
+  for(var v=0;v<=10;v+=5){
+    var y=H-pad-(v/10)*(H-2*pad);
+    grid+='<line x1="'+pad+'" y1="'+y+'" x2="'+(W-pad)+'" y2="'+y+'" stroke="#e2e7f0" stroke-width="1"/>'+
+      '<text x="'+(pad-6)+'" y="'+(y+4)+'" font-size="10" fill="#8a97a8" text-anchor="end">'+v+'</text>';
+  }
+  for(var rr=1;rr<=MAX_ROUNDS;rr++){
+    var x=pad+(rr-1)*(W-2*pad)/(MAX_ROUNDS-1);
+    grid+='<text x="'+x+'" y="'+(H-pad+16)+'" font-size="10" fill="#8a97a8" text-anchor="middle">'+rr+'</text>';
+  }
+  el('chart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block">'+grid+lines+'</svg>';
+  el('chartLegend').innerHTML=people.map(function(p,i){
+    return '<span><i style="background:'+CHART_COLORS[i%CHART_COLORS.length]+'"></i>'+escapeHtml(p.name)+(p.bot?' 🤖':'')+'</span>';
+  }).join('');
+}
+
+function finish(){
+  game.screen='finished';save();
+  var rowsA=game.rows.filter(function(x){return x.stage==='A';});
+  var rowsB=game.rows.filter(function(x){return x.stage==='B';});
+  el('avgFirst').textContent=fmt(mean(rowsA.map(function(x){return x.total;})))+' 点';
+  el('avgLast').textContent=fmt(mean(rowsB.map(function(x){return x.total;})))+' 点';
+  el('sumTotal').textContent=game.rows.reduce(function(s,r){return s+r.total;},0)+' 点';
+  archiveGame();renderArchiveSummary();renderEnding();projectGuide();updateRecords();drawChart();
+  var cum={};
+  game.rows.forEach(function(r){r.actions.forEach(function(a){cum[a.id]=(cum[a.id]||0)+a.payoff;});});
+  var people=game.persons.map(function(p){return {id:p.id,name:p.name,bot:p.bot,score:cum[p.id]||0};})
+    .sort(function(a,b){return b.score-a.score;});
+  renderStandings('finalStanding',people,'score');
+  view('finished');
+}
+
+/* ---------- 记录与导出 ---------- */
+function updateRecords(){
+  if(!game){show('recordPanel',false);return;}
+  show('recordPanel');
+  el('exportPartial').disabled=game.screen!=='finished';el('exportPartial').textContent=game.screen==='finished'?'下载完整 CSV':'终局后开放完整 CSV';
+  el('recordCount').textContent=game.rows.length+' / '+MAX_ROUNDS+' 轮';
+  el('recordRows').innerHTML=game.rows.length?game.rows.map(function(r){
+    return '<tr><td>'+r.round+'</td><td>'+r.stage+'</td><td>'+r.total+'</td><td>'+fmt(r.teamBase-r.actions.reduce(function(s,a){return s+(a.punishGiven||0)+(a.punishReceived||0);},0))+'</td><td>'+fmt(r.total/r.actions.length)+'</td><td>'+(r.stage==='B'?'是':'否')+'</td><td>'+(r.punishEvents.length?r.punishEvents.length+' 次':'—')+'</td></tr>';
+  }).join(''):'<tr><td colspan="7">等待第一轮结束</td></tr>';
+}
+function csvField(v){if(v===null||v===undefined)return '""';var s=String(v);if(/^[=+@\t\r]/.test(s)||(/^[-]/.test(s)&&!/^-[0-9]+(?:\.[0-9]+)?$/.test(s)))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
+function infoVisible(r){
+  if(r.round===1)return '无（第一轮）';
+  return r.stage==='B'?'上一轮每人投入':'上一轮团队总额';
+}
+function dataRows(sample){
+  var source=sample||game;
+  var head=['会话ID','游戏模式','是否进阶规则','随机种子','轮次','阶段','决策前可见信息','约定值','参与人数',
+    '玩家代号','玩家昵称','真人或模拟','行为类型(仅模拟者)','本人贡献','预测他人均值','他人实际均值',
+    '团队总贡献','扣行动后得分','惩罚支出','被罚损失','最终得分','累计得分','社会事件',
+    '回报倍数','每轮点数','惩罚成本','惩罚力度','场景','本轮对话','公开意向','沟通投入修正','规则版本','项目代号','规则条件','突发事件','事件初始倍数','行动卡','行动成本','剩余行动券','行动前得分','修缮增量','连锁倍率','本轮解锁','预测绝对误差','决策间隔毫秒_含停留','对话目标','约定对象','约定点数','对方接受约定','双方兑现约定'];
+  var cum={};
+  var rows=[];
+  source.rows.forEach(function(r){
+    r.actions.forEach(function(a){
+      cum[a.id]=(cum[a.id]||0)+a.payoff;
+      var events=[];
+      (r.punishEvents||[]).forEach(function(e){
+        if(e.from===a.id)events.push('惩罚了'+e.toName);
+        if(e.to===a.id)events.push('被'+e.fromName+'惩罚');
+      });
+      if(r.reactions&&r.reactions[a.id])events.push('反应:「'+r.reactions[a.id].text+'」');
+      rows.push([
+        source.session,source.mode==='solo'?'单人':'多人',source.advanced?'是':'否',source.seed,
+        r.round,r.stage,infoVisible(r),r.norm==null?'':r.norm,r.actions.length,
+        a.id,a.name,a.bot?'模拟':'真人',a.bot?L.PROFILES[a.profile].label:'',
+        a.contribution,a.forecast==null?'':a.forecast,fmt(a.peerMean),r.total,
+        fmt(a.payoffBase),a.punishGiven||0,a.punishReceived||0,fmt(a.payoff),fmt(cum[a.id]),
+        events.join('；'),r.effectiveMultiplier||MULTIPLIER,ENDOWMENT,source.advanced?PUNISH_COST:'',source.advanced?PUNISH_EFFECT:'',GAME_STORY.scenes[r.round-1][2],r.talk?r.talk.text:'',r.talk&&r.talk.pledge!=null?r.talk.pledge:'',a.bot&&r.talk?(r.talk.shifts[a.id]||0):0,source.ruleVersion||'4.x',source.projectCode||'',source.condition||'legacy',r.event?r.event.id:'legacy',r.event?r.event.multiplier:1.6,a.tool||'none',a.toolCost||0,a.tokensLeft==null?'':a.tokensLeft,fmt(a.grossPayoff==null?a.payoffBase:a.grossPayoff),r.repairGain==null?r.total:r.repairGain,r.combo||1,(r.newUnlocks||[]).map(function(i){return FACILITIES[i].name;}).join('；'),Math.abs(a.forecast-a.peerMean),a.decisionMs==null?'':a.decisionMs,r.talk?r.talk.target||'all':'',r.talk&&r.talk.pact?r.talk.pact.id:'',r.talk&&r.talk.pact?r.talk.pact.amount:'',r.talk&&r.talk.pact?r.talk.pact.accepted:'',r.pactKept==null?'':r.pactKept
+      ]);
+    });
+  });
+  return '﻿'+[head].concat(rows).map(function(row){return row.map(csvField).join(',');}).join('\r\n');
+}
+function download(name,content,type){
+  var blob=new Blob([content],{type:type});
+  var url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},6000);
+  el('status').textContent='已请求浏览器保存 '+name+'；请在“下载”或“文件”中检查。';
+}
+function exportCSV(){
+  if(game&&game.screen!=='finished'){el('status').textContent='为保护局内隐藏信息，完整导出会在终局开放。';return;}
+  if(!game||!game.rows.length){el('status').textContent='请先完成至少一轮。';return;}
+  download('自习室游戏_'+game.session+'.csv',dataRows(),'text/csv;charset=utf-8');
+}
+function exportJSON(){
+  if(game&&game.screen!=='finished')return;
+  if(!game||!game.rows.length)return;
+  download('自习室游戏_'+game.session+'.json',JSON.stringify({
+    version:5,
+    note:'离线游戏记录。电脑玩家（标记为“模拟”）的决策由内置行为模型生成，用于游戏体验和数据分析练习，不代表经过科学验证的人类行为。',
+    session:game.session,seed:game.seed,mode:game.mode,advanced:game.advanced,norm:game.norm,
+    params:game.params,created:game.created,exportedAt:new Date().toISOString(),ruleVersion:game.ruleVersion,condition:game.condition,projectCode:game.projectCode,protocol:protocolText(),
+    persons:game.persons.map(function(p){return {id:p.id,name:p.name,bot:p.bot,profile:p.profile,profileLabel:p.bot?L.PROFILES[p.profile].label:null};}),
+    talks:game.talks,storyVersion:game.storyVersion,rows:game.rows
+  },null,2),'application/json;charset=utf-8');
+}
+function restart(){
+  if(!confirm('确定重新开始？未完成的当前局将清除，已完成的本机归档仍保留。'))return;
+  game=null;clearSaved();changeMode('solo');
+  el('advancedMode').checked=false;show('normArea',false);
+  view('setup');show('recordPanel',false);el('status').textContent='';
+}
+function restore(){
+  var saved=null;
+  try{saved=JSON.parse(localStorage.getItem(key)||'null');}catch(e){}
+  if(!saved){try{saved=JSON.parse(localStorage.getItem('cooperate_game_v4')||localStorage.getItem('cooperate_game_v3')||'null');}catch(e){}}
+  if(!saved||!Array.isArray(saved.persons)||!Array.isArray(saved.rows)||!saved.params||saved.params.rounds!==8||saved.round<1||saved.round>8)return;
+  saved.talks=saved.talks||{};saved.drafts=saved.drafts||{};saved.storyVersion=saved.storyVersion||3;
+  saved.rows.forEach(function(r){if(saved.advanced&&r.stage==='B'&&!r.punishEvents.length&&saved.storyVersion===3){r.punishDone=false;}});
+  saved.condition=saved.condition||'legacy';saved.ruleVersion=saved.ruleVersion||'4.x';game=saved;mode=saved.mode||'solo';
+  el('advancedMode').checked=!!saved.advanced;show('normArea',!!saved.advanced);
+  updateRecords();
+  el('enter').onclick=showPlayer;
+  if(game.screen==='finished'){finish();return;}
+  if(game.screen==='punish'){punishTurn();return;}
+  if(game.screen==='results'){renderResults(previous());view('results');return;}
+  if(game.screen==='handoff'){
+    if(game.punishQueue&&game.punishQueue.length){
+      /* 惩罚环节中途刷新：恢复惩罚交接，而不是普通作答交接 */
+      var r0=previous();
+      var nxt0=game.persons.find(function(p){return p.id===game.punishQueue[0];});
+      el('handoffRound').textContent='第 '+(r0?r0.round:game.round)+' 轮 · 惩罚环节';
+      el('handoffPosition').textContent='';
+      el('handoffName').textContent=nxt0?nxt0.name:'';
+      el('enter').onclick=punishTurn;
+      view('handoff');return;
+    }
+    moveToPlayer(false);return;
+  }
+  if(game.screen==='play'){
+    if(game.mode==='local'&&game.index>0)moveToPlayer(false);else showPlayer();
+    return;
+  }
+  view('setup');
+}
+
+/* ---------- 事件绑定 ---------- */
+el('soloMode').addEventListener('click',function(){changeMode('solo');});
+el('localMode').addEventListener('click',function(){changeMode('local');});
+el('teamCount').addEventListener('change',makeNames);
+el('advancedMode').addEventListener('change',function(e){show('normArea',e.target.checked);});
+el('start').addEventListener('click',newGame);
+el('enter').onclick=showPlayer;
+el('contribution').addEventListener('input',function(e){el('contributionValue').textContent=e.target.value;saveDraft();previewPayoff();});
+el('forecast').addEventListener('input',function(e){el('forecastValue').textContent=e.target.value;saveDraft();previewPayoff();});
+el('submit').addEventListener('click',submit);
+el('next').addEventListener('click',next);
+el('exportCsv').addEventListener('click',exportCSV);
+el('exportPartial').addEventListener('click',exportCSV);
+el('exportJson').addEventListener('click',exportJSON);
+el('restartFinal').addEventListener('click',restart);
+el('reset').addEventListener('click',restart);
+el('motionToggle').addEventListener('click',function(){
+  var on=document.body.classList.toggle('reduce-motion');
+  try{localStorage.setItem('cooperate_reduce_motion',on?'1':'0');}catch(e){}
+  el('motionToggle').textContent=on?'恢复动画':'减少动画';
+});
+try{
+  if(localStorage.getItem('cooperate_reduce_motion')==='1'){
+    document.body.classList.add('reduce-motion');
+    el('motionToggle').textContent='恢复动画';
+  }
+}catch(e){}
+
+el('quickContribution').addEventListener('click',function(e){var b=e.target.closest('button[data-value]');if(!b)return;el('contribution').value=b.dataset.value;el('contributionValue').textContent=b.dataset.value;saveDraft();previewPayoff();});
+el('exportArchive').addEventListener('click',exportArchive);makeNames();restore();renderArchiveSummary();
+})();
+</script>
+</body>
+</html>
