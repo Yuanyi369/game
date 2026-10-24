@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070a" />
+  <meta name="description" content="Insta360 Ace Pro 2 交互式 3D 结构拆解可视化 — 基于 Three.js 实时渲染。" />
+  <title>ACE PRO 2 — 3D 结构拆解实验室</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f23b2f'/%3E%3Cpath d='M17 38c6-16 22-21 32-15-5 0-8 3-11 7 3 0 5 1 7 3-7 1-11 5-14 10z' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <noscript>
+    <div class="noscript">此页面需要启用 JavaScript 才能进入 3D 结构实验室。</div>
+  </noscript>
+
+  <div class="app" id="app">
+    <canvas id="scene" aria-label="Insta360 Ace Pro 2 可交互式三维拆解模型"></canvas>
+
+    <div class="scene-wash" aria-hidden="true"></div>
+    <div class="scene-grid" aria-hidden="true"></div>
+    <div class="scene-vignette" aria-hidden="true"></div>
+    <div class="scene-noise" aria-hidden="true"></div>
+    <div class="scene-scanline" aria-hidden="true"></div>
+
+    <div class="frame" aria-hidden="true">
+      <i class="frame-corner tl"></i>
+      <i class="frame-corner tr"></i>
+      <i class="frame-corner bl"></i>
+      <i class="frame-corner br"></i>
+      <span class="frame-mark mark-a">A—01</span>
+      <span class="frame-mark mark-b">LENS / 13MM</span>
+      <span class="frame-mark mark-c">35.90° N · 119.41° E</span>
+      <span class="frame-mark mark-d">ASSEMBLY BLUEPRINT</span>
+      <span class="frame-line fl-a"></span>
+      <span class="frame-line fl-b"></span>
+    </div>
+
+    <header class="topbar hud-reveal">
+      <div class="brand" aria-label="Insta360 Ace Pro 2 Structure Lab">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <circle cx="24" cy="24" r="22" fill="currentColor"></circle>
+            <path d="M11.8 28.9c4.9-12.1 17-16.3 25-11.3-4 .1-6.4 2.4-8.8 5.5 2.4-.1 4.2.6 5.7 2.2-5.4.7-8.7 3.8-11.1 7.8-2.3.1-4.6-.8-6.1-2.4 1.7-.6 3.3-1.4 4.7-2.6-3.2.3-6.3.1-9.4.8Z" fill="#fff"></path>
+          </svg>
+        </span>
+        <span class="brand-word">
+          <strong>INSTA360</strong>
+          <span>ACE PRO 2 <i>/</i> STRUCTURE LAB</span>
+        </span>
+      </div>
+
+      <div class="mode-pill" aria-label="当前模式：交互式 3D 拆解">
+        <span class="mode-pulse"></span>
+        <span class="mode-cn">交互式结构拆解</span>
+        <span class="mode-divider"></span>
+        <span class="mode-en">EXPLODED VIEW</span>
+      </div>
+
+      <div class="top-actions">
+        <span class="render-status"><i></i>WEBGL <b>/</b> LIVE</span>
+        <button class="icon-button help-button" id="helpBtn" type="button" aria-label="打开操作引导">
+          <span class="help-glyph">?</span>
+          <span class="icon-label">操作引导</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="intro hud-reveal" aria-labelledby="heroTitle">
+      <div class="eyebrow intro-eyebrow">
+        <span class="eyebrow-index">01</span>
+        <span>8K AI‑POWERED ACTION CAMERA</span>
+        <i></i>
+      </div>
+
+      <h1 class="hero-title" id="heroTitle">
+        <span class="hero-ace">ACE</span>
+        <span class="hero-pro">PRO <em>2</em></span>
+      </h1>
+
+      <div class="hero-cn">
+        <span>影像旗舰</span>
+        <i></i>
+        <span>结构拆解可视化</span>
+      </div>
+
+      <p class="intro-copy">
+        深入 8K 影像核心。点击任意部件触发拆解，<br />
+        在光与金属之间，重读一台运动相机的构造。
+      </p>
+
+      <div class="spec-chips" aria-label="核心规格">
+        <span><b>1/1.3″</b> SENSOR</span>
+        <span><b>8K</b> / 30FPS</span>
+        <span><b>157°</b> FOV</span>
+        <span><b>2.5″</b> FLIP SCREEN</span>
+      </div>
+
+      <div class="assembly-readout" aria-live="polite">
+        <div class="assembly-topline">
+          <span>ASSEMBLY STATUS</span>
+          <b id="assemblyState">FULLY ASSEMBLED / 装配完成</b>
+        </div>
+        <div class="assembly-track"><span id="assemblyBar"></span></div>
+        <div class="assembly-meta">
+          <span>PARTS <b id="assemblyCount">09</b>/09</span>
+          <span>MODE <b id="assemblyMode">X‑RAY OFF</b></span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="parts-panel hud-reveal" id="partsPanel" aria-labelledby="partsTitle">
+      <div class="panel-glow" aria-hidden="true"></div>
+      <div class="panel-topline">
+        <span><i></i> COMPONENT MATRIX</span>
+        <span class="panel-date">10 / 2024</span>
+      </div>
+
+      <div class="panel-heading">
+        <div>
+          <div class="eyebrow panel-eyebrow">
+            <span class="eyebrow-index">02</span>
+            <span>TECHNICAL INVENTORY</span>
+          </div>
+          <h2 id="partsTitle">核心部件</h2>
+        </div>
+        <span class="parts-total" aria-label="共 9 个部件"><b>09</b><em>PARTS</em></span>
+      </div>
+
+      <div class="parts-list-wrap">
+        <ul class="parts-list" id="partsList" aria-label="部件清单"></ul>
+      </div>
+
+      <section class="detail-panel" id="detailPanel" aria-live="polite" aria-label="部件详情"></section>
+
+      <div class="panel-footer">
+        <span class="panel-footer-dot"></span>
+        <span>点击部件独立拆解 · 双击画布可复位</span>
+        <span class="panel-disclaimer">非官方结构演绎</span>
+      </div>
+
+      <button class="panel-close" id="panelClose" type="button" aria-label="收起部件清单">收起</button>
+      <button class="mobile-panel-handle" id="panelHandle" type="button" aria-expanded="false" aria-controls="partsPanel"><span></span><b>核心部件 / 参数</b><span>点击展开</span></button>
+    </aside>
+
+    <div class="labels-layer" id="labelsLayer" aria-label="部件标注">
+      <svg class="leader-svg" id="leaderSvg" aria-hidden="true"></svg>
+      <div class="labels-inner" id="labelNodes"></div>
+    </div>
+
+    <div class="selection-caption" id="selectionCaption" aria-hidden="true">
+      <span class="selection-caption-line"></span>
+      <span id="selectionCaptionText">SELECT A COMPONENT</span>
+    </div>
+
+    <div class="bottom-dock hud-reveal">
+      <div class="dock-inner">
+        <div class="guide-chip" id="guideChip">
+          <span class="mouse-glyph" aria-hidden="true">
+            <svg viewBox="0 0 28 36">
+              <rect x="1" y="1" width="26" height="34" rx="13"></rect>
+              <path d="M14 2v12"></path>
+              <path d="M8 9.5c0-2.5 2.7-4.5 6-4.5s6 2 6 4.5V15H8z" fill="currentColor" opacity=".9" stroke="none"></path>
+            </svg>
+          </span>
+          <span class="guide-copy">
+            <span>拖拽旋转 · 滚轮缩放</span>
+            <strong>点击部件，开始拆解</strong>
+          </span>
+          <button class="guide-dismiss" id="guideDismiss" type="button" aria-label="隐藏操作提示">×</button>
+        </div>
+
+        <div class="view-presets" role="group" aria-label="视角预设">
+          <button class="view-button is-active" type="button" data-view="hero" title="默认视角 (1)">3/4</button>
+          <button class="view-button" type="button" data-view="front" title="正视 (2)">正视</button>
+          <button class="view-button" type="button" data-view="side" title="侧视 (3)">侧视</button>
+          <button class="view-button" type="button" data-view="top" title="俯视 (4)">俯视</button>
+          <button class="view-button view-reset" type="button" data-view="reset" title="复位视角 (R)" aria-label="复位视角">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 5"></path><path d="M3 3v5h5"></path></svg>
+          </button>
+        </div>
+
+        <div class="dock-actions">
+          <button class="tool-button" id="autoBtn" type="button" aria-pressed="true" title="自动旋转 (A)">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.8 7.2A6.4 6.4 0 1 0 16 11"></path><path d="M16 3.5v4.2h-4.2"></path></svg>
+            <span>自动旋转</span>
+            <i class="tool-light"></i>
+          </button>
+          <button class="tool-button" id="xrayBtn" type="button" aria-pressed="false" title="X-RAY 透视 (X)">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.7"></circle><path d="M10 3.3v13.4M3.3 10h13.4"></path><circle cx="10" cy="10" r="2.2" fill="currentColor"></circle></svg>
+            <span>X‑RAY</span>
+            <i class="tool-light"></i>
+          </button>
+          <button class="explode-button" id="explodeBtn" type="button" aria-pressed="false">
+            <span class="explode-dot"></span>
+            <span class="explode-text">拆解整机</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-coordinates hud-reveal" aria-hidden="true">
+      <span>X / +03.52</span>
+      <span>Y / +01.00</span>
+      <span>Z / −00.64</span>
+      <i></i>
+      <span class="coordinate-format">AXONOMETRIC · PERSPECTIVE</span>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>EXPLORE THE STRUCTURE</span><i></i>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="first-hint" id="firstHint" aria-hidden="true">
+      <div class="first-hint-line"></div>
+      <div class="first-hint-copy">
+        <span>TIP 01</span>
+        <strong>点击任意部件，查看结构与参数</strong>
+      </div>
+    </div>
+
+    <div class="modal-layer" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="guide-modal">
+        <button class="modal-close" id="modalClose" type="button" aria-label="关闭操作引导">×</button>
+        <div class="modal-kicker"><span>FIELD MANUAL</span><i></i><span>NO. 02</span></div>
+        <h2 id="helpTitle">操作引导</h2>
+        <p class="modal-lead">这不是一段视频。移动视角，拆开结构，直接读取 ACE PRO 2 的组成。</p>
+
+        <div class="guide-grid">
+          <article class="guide-card">
+            <span class="guide-card-index">01</span>
+            <div class="guide-card-icon orbit-icon" aria-hidden="true"><i></i><i></i><i></i></div>
+            <h3>自由旋转</h3>
+            <p>按住鼠标左键拖拽，或单指滑动，从任意角度观察机身。</p>
+            <span class="guide-key"><kbd>DRAG</kbd> 拖拽</span>
+          </article>
+          <article class="guide-card">
+            <span class="guide-card-index">02</span>
+            <div class="guide-card-icon zoom-icon" aria-hidden="true"><i></i><i></i></div>
+            <h3>缩放视距</h3>
+            <p>滚轮、双指捏合或触控板滑动，推近镜头与电路细节。</p>
+            <span class="guide-key"><kbd>SCROLL</kbd> 缩放</span>
+          </article>
+          <article class="guide-card">
+            <span class="guide-card-index">03</span>
+            <div class="guide-card-icon explode-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <h3>点击拆解</h3>
+            <p>点击机身部件或右侧清单，部件会沿轴向外移并高亮发光。</p>
+            <span class="guide-key"><kbd>CLICK</kbd> 拆解</span>
+          </article>
+          <article class="guide-card">
+            <span class="guide-card-index">04</span>
+            <div class="guide-card-icon xray-icon" aria-hidden="true"><i></i></div>
+            <h3>X‑RAY 透视</h3>
+            <p>开启透视，观察被外壳包裹的传感器、主板与散热结构。</p>
+            <span class="guide-key"><kbd>X</kbd> 透视</span>
+          </article>
+        </div>
+
+        <div class="shortcut-strip">
+          <span><kbd>E</kbd> 拆解 / 组装</span>
+          <span><kbd>X</kbd> X‑RAY</span>
+          <span><kbd>A</kbd> 自动旋转</span>
+          <span><kbd>R</kbd> 复位</span>
+          <span><kbd>ESC</kbd> 取消选择</span>
+        </div>
+
+        <div class="modal-note">
+          <span class="modal-note-dot"></span>
+          本页为基于官方公开规格创作的非官方结构可视化，内部布局为艺术化演绎，不代表真实拆机结构。
+        </div>
+      </div>
+    </div>
+
+    <div class="loading-screen" id="loader">
+      <div class="loader-grid" aria-hidden="true"></div>
+      <div class="loader-scan" aria-hidden="true"></div>
+      <div class="loader-corner loader-tl" aria-hidden="true"></div>
+      <div class="loader-corner loader-br" aria-hidden="true"></div>
+      <div class="loader-content">
+        <div class="loader-brand">
+          <span class="brand-mark loader-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="currentColor"></circle><path d="M11.8 28.9c4.9-12.1 17-16.3 25-11.3-4 .1-6.4 2.4-8.8 5.5 2.4-.1 4.2.6 5.7 2.2-5.4.7-8.7 3.8-11.1 7.8-2.3.1-4.6-.8-6.1-2.4 1.7-.6 3.3-1.4 4.7-2.6-3.2.3-6.3.1-9.4.8Z" fill="#fff"></path></svg>
+          </span>
+          <span>INSTA360 / STRUCTURE LAB</span>
+        </div>
+        <div class="loader-title">
+          <span class="loader-title-line">ACE PRO <em>2</em></span>
+          <span class="loader-title-sub">EXPLODED VIEW · INTERACTIVE</span>
+        </div>
+        <div class="loader-progress" aria-hidden="true">
+          <span class="loader-progress-fill" id="loaderBar"></span>
+        </div>
+        <div class="loader-status-row">
+          <span class="loader-status" id="loaderStatus">初始化 WebGL 渲染器</span>
+          <span class="loader-percentage" id="loaderPct">00</span>
+        </div>
+        <div class="loader-facts">
+          <span>1/1.3″ CMOS</span><i></i><span>8K / 30FPS</span><i></i><span>LEICA OPTICS</span>
+        </div>
+      </div>
+      <div class="loader-footer">
+        <span>CONCEPT TEARDOWN / 2024</span>
+        <span class="loader-fps-label">REALTIME 3D</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./bundle.js" defer></script>
+</body>
+</html>
